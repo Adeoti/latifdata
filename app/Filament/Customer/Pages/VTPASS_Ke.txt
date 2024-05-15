@@ -1,0 +1,96 @@
+
+VTPASS Sandbox Elements.....
+
+VTPASS  KEY:: f40824cdb526d8d07bd1a4c7f54e2e9d
+
+VTPASS Public Key:: PK_635c62becefdcf3c266258fd918c910c6680349d04d
+
+VTPASS Secret Key:: SK_235d4a93fad76fdb31686ef201a5dc4b517d75f6df5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Ikeja Electricity 
+  Eko Electricity 
+  Kano Electricity 
+  Port Harcourt Electricity 
+  Jos Electricity 
+  Ibadan Electricity 
+  Kaduna Electricity 
+  Abuja Electricity 
+  Enugu Electricity 
+  Benin Electricity 
+  ABA Electricity 
+  YOLA Electricity 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$this->dispatch(
+                                                    'alert',
+                                                    title: 'Successful',
+                                                    text: $responseData,
+                                                    button: 'Got it!',
+                                                    type: 'success'
+                                                );
+
+
+
+$this->dispatch(
+                                                    'alert',
+                                                    title: 'Successful',
+                                                    text: $customerName,
+                                                    button: 'Got it!',
+                                                    type: 'success'
+                                                );
+                                                
+
+
+
+                                                $customerName = $slicedResponce['Customer_Name'];
+                                                $customerBalance = $slicedResponce['Balance'];
+                                                $dueDate = $slicedResponce['DUE_DATE'];
+
+
+
+
+
+                            Customer_Name
+                            Status
+                            Customer_ID
+                            DUE_DATE
+                            Balance
+                            Smartcard_Number
