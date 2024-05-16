@@ -864,7 +864,7 @@
                                     <b>Address: </b> 5, IFELODUN STREET AJEGUNLE IKORODU, Lagos 
                                 </p>
                                 <p>
-                                    <b>Phone: </b> 09114071688 
+                                    <b>Phone No.: </b> 09114071688 
                                 </p>
 
                                 <p>
