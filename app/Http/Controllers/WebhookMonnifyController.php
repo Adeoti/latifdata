@@ -50,7 +50,7 @@ class WebhookMonnifyController extends Controller
       $secretKey = PaymentIntegration::first()->monnify_secret_key; 
       $contractCode = PaymentIntegration::first()->monnify_contract_code;
       
-      $baseUrl = 'https://sandbox.monnify.com/'; //Sandbox
+      $baseUrl = 'https://api.monnify.com/'; //Production
   
   
   
