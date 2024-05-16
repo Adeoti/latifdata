@@ -8,7 +8,6 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\PaymentTracker;
 use App\Models\PaymentIntegration;
-use App\Models\TemporaryLogger;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Filament\Notifications\Notification;
@@ -64,10 +63,6 @@ class WebhookMonnifyController extends Controller
       $responseData = json_decode($response->body(), true);
   
   
-      TemporaryLogger::create([
-        'title' => 'Transaction Status Response',
-        'body' => $responseData
-      ]);
       // Check if the request was successful
       if ($responseData['requestSuccessful']) {
           // Extract the access token and expiration time
@@ -80,10 +75,6 @@ class WebhookMonnifyController extends Controller
 
            // Send the GET request with the token included in the request header
 
-           TemporaryLogger::create([
-            'title' => 'Access Token',
-            'body' => $accessToken
-          ]);
 
            $url = $baseUrl."api/v2/transactions/" . urlencode($transactionReference);
 
@@ -105,20 +96,11 @@ class WebhookMonnifyController extends Controller
               // Log or handle unsuccessful request
               $errorMessage = $responseData['responseMessage'];
               // Handle error appropriately
-
-              TemporaryLogger::create([
-                'title' => 'Error Not Successful',
-                'body' => $responseData
-              ]);
           }
       } else {
           // Log or handle request failure
           $errorMessage = 'Failed to fetch transaction status';
           // Handle error appropriately
-          TemporaryLogger::create([
-            'title' => 'Failed to fetch transaction status',
-            'body' => $response
-          ]);
       }
 
           
@@ -134,16 +116,11 @@ class WebhookMonnifyController extends Controller
         $monnifySignature = $request->header('monnify-signature');
     
         // Compute hash of the request body using your client secret key
-        $computedHash = hash_hmac('sha512', $request->getContent(), 'KUW10CC1LUPD5V9J24N6U7RH4WN82LCN');
+        $computedHash = hash_hmac('sha512', $request->getContent(), 'JU7J2MMZ1H4XDAS7P6K9UJXXQVGZE252');
     
         // Compare the computed hash with the one sent by Monnify
         if ($monnifySignature !== $computedHash) {
             // Invalid request, log or handle error
-
-            TemporaryLogger::create([
-                'title' => 'Invalid Signature',
-                'body' => $monnifySignature."".$computedHash
-              ]);
             return response()->json(['error' => 'Invalid signature'], 400);
         }
     
@@ -203,12 +180,6 @@ class WebhookMonnifyController extends Controller
                 $payment_check = PaymentTracker::where('ref_key', $transactionReference)->count();
 
                 if($payment_check > 0){
-
-                    TemporaryLogger::create([
-                        'title' => 'Duplicate Transaction',
-                        'body' => $payment_check
-                      ]);
-
                     return response()->json(['error' => 'Duplicate transaction'], 400);
                 }
 
@@ -221,12 +192,6 @@ class WebhookMonnifyController extends Controller
 
                 //Stop further operations if transaction status is not PAID
                 if ($transactionStatus !== 'PAID') {
-
-                    TemporaryLogger::create([
-                        'title' => 'Transaction Status',
-                        'body' => $transactionStatus
-                      ]);
-
                     return response()->json(['error' => 'Transaction status is not PAID'], 400);
                 }
 
@@ -276,10 +241,6 @@ class WebhookMonnifyController extends Controller
             // Add cases for other event types as needed
             default:
                 // Unsupported event type, log or handle error
-                TemporaryLogger::create([
-                    'title' => 'Unrecognized Event Type',
-                    'body' => $eventType
-                  ]);
                 return response()->json(['error' => 'Unsupported event type'], 400);
         }
     }
