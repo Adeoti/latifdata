@@ -74,13 +74,19 @@ class KYCWidget extends Widget implements HasForms
 
 protected function getFormActions(): array
 {
-    return [
+
+    if(auth()->user()->has_accounts == true){
+        return [];
+    }else{
+         return [
         Action::make('Update')
             ->color('primary')
             ->requiresConfirmation()
             ->icon('heroicon-m-check')
             ->submit('Update'),
     ];
+    }
+   
 }
 
 
