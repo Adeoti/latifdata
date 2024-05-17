@@ -178,7 +178,7 @@ public function createMonnifyAccounts($bvn,$nin){
         $decodedAccountResponse = json_decode($accountResponse->body(), true);
 
 
-       dd($decodedAccountResponse);
+       //dd($decodedAccountResponse);
         
             
 
