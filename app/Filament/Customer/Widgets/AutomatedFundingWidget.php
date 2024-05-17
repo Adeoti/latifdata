@@ -56,7 +56,12 @@ class AutomatedFundingWidget extends BaseWidget
             }else{
                 return [
                     Stat::make('Generate automated accounts','Fill KYC')
-                        ->description('Go to your profile section to fill your KYC form in order to generate your automated account numbers. Your account numbers will show here after the exercise.')
+                        ->description('Go to your profile section to fill your KYC form in order to generate your automated account numbers. Your account numbers will show here after the exercise. Click here now')
+                        ->extraAttributes([
+                            'class' => 'cursor-pointer',
+                            'onclick' => "window.open('edit-profile', '_self')",
+                            //'wire:click' => "\$dispatch('alert', { filter: 'processed' })",
+                        ]),
                 ];
             }
 

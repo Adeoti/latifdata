@@ -108,9 +108,12 @@ class WebhookMonnifyController extends Controller
     }
 
 
+    //public function handleWebhook(Request $request)
+    //{ 
+      //  return response()->json(['message' => 'Webhook received successfully Fake'], 200);
+    //}
 
-
-    public function handleWebhook(Request $request)
+   public function handleWebhook(Request $request)
     {   
         // Extract Monnify signature from the request header
         $monnifySignature = $request->header('monnify-signature');
@@ -122,6 +125,8 @@ class WebhookMonnifyController extends Controller
         if ($monnifySignature !== $computedHash) {
             // Invalid request, log or handle error
             return response()->json(['error' => 'Invalid signature'], 400);
+            //return response()->json(['message' => 'Webhook received successfully Fake'], 200);
+             
         }
     
         // Request is valid, process the notification
@@ -181,6 +186,7 @@ class WebhookMonnifyController extends Controller
 
                 if($payment_check > 0){
                     return response()->json(['error' => 'Duplicate transaction'], 400);
+                    
                 }
 
 
@@ -236,7 +242,7 @@ class WebhookMonnifyController extends Controller
 
     
                 // Respond with a 200 HTTP status code to acknowledge receipt of the notification
-                return response()->json(['message' => 'Webhook received successfully'], 200);
+                return response()->json(['message' => 'Webhook received successfully ...FIne'], 200);
     
             // Add cases for other event types as needed
             default:
@@ -244,5 +250,5 @@ class WebhookMonnifyController extends Controller
                 return response()->json(['error' => 'Unsupported event type'], 400);
         }
     }
-    
+   
 }
