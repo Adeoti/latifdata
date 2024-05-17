@@ -3,6 +3,7 @@
 namespace App\Filament\Customer\Pages;
 
 use App\Filament\Customer\Widgets\AutomatedFundingWidget;
+use App\Filament\Customer\Widgets\KYCWidget;
 use App\Filament\Customer\Widgets\ManualFundingWidget;
 use Filament\Pages\Page;
 use App\Models\PaymentIntegration;
@@ -23,10 +24,18 @@ class FundWallet extends Page
 
     protected function getFooterWidgets(): array
     {
+       if(auth()->user()->has_accounts == true){
         return [
             AutomatedFundingWidget::class,
             ManualFundingWidget::class,
         ];
+       }else{
+        return [
+            AutomatedFundingWidget::class,
+            KYCWidget::class,
+            ManualFundingWidget::class,
+        ];
+       }
     }
 
 
