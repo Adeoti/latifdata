@@ -87,17 +87,17 @@ public function form(Form $form): Form
                 ->default(000000000)
                 ->revealable(),
            
-            TextInput::make('monnify_bvn')
-                ->label('Monnify BVN')
+            TextInput::make('monnify_base_url')
+                ->label('Monnify Base URL')
                 ->required()
-                ->password()
-                ->default(000000000)
-                ->revealable(),
+                ,
            
             TextInput::make('automated_charges')
                 ->label('Monnify Charges')
                 ->prefix($ngn)
                 ->required(),
+           
+          
            
             TextInput::make('paystack_secret_key')
                 ->label('Paystack Secret Key')
@@ -114,7 +114,31 @@ public function form(Form $form): Form
 
         ])->columns(3),
 
+        Section::make('VTPass')
+            ->schema([
+                
+                TextInput::make('vtpass_api_key')
+                ->label('VTPass API Key')
+                ->password()
+                ->default(00000)
+                ->revealable()
+                ->required(),
+                
+                TextInput::make('vtpass_public_key')
+                ->label('VTPass Public Key')
+                ->password()
+                ->default(00000)
+                ->revealable()
+                ->required(),
+                
+                TextInput::make('vtpass_secret_key')
+                ->label('VTPass Secret Key')
+                ->password()
+                ->default(00000)
+                ->revealable()
+                ->required(),
 
+            ])->columns(3),
         Section::make('Manual Payment')
             ->schema([
                 Select::make('manual_bank_name')
@@ -145,15 +169,15 @@ public function form(Form $form): Form
 
     public function updatePaymentIntegration(): void
     {
-        $monnify_api_key = $this->form->getState()['monnify_api_key'];
-        $monnify_secret_key = $this->form->getState()['monnify_secret_key'];
-        $monnify_contract_code = $this->form->getState()['monnify_contract_code'];
-        $monnify_bvn = $this->form->getState()['monnify_bvn'];
-        $paystack_secret_key = $this->form->getState()['paystack_secret_key'];
-        $paystack_live_key = $this->form->getState()['paystack_live_key'];
-        $manual_bank_name = $this->form->getState()['manual_bank_name'];
-        $manual_account_name = $this->form->getState()['manual_account_name'];
-        $manual_account_number = $this->form->getState()['manual_account_number'];
+        // $monnify_api_key = $this->form->getState()['monnify_api_key'];
+        // $monnify_secret_key = $this->form->getState()['monnify_secret_key'];
+        // $monnify_contract_code = $this->form->getState()['monnify_contract_code'];
+        // $monnify_bvn = $this->form->getState()['monnify_bvn'];
+        // $paystack_secret_key = $this->form->getState()['paystack_secret_key'];
+        // $paystack_live_key = $this->form->getState()['paystack_live_key'];
+        // $manual_bank_name = $this->form->getState()['manual_bank_name'];
+        // $manual_account_name = $this->form->getState()['manual_account_name'];
+        // $manual_account_number = $this->form->getState()['manual_account_number'];
 
         $ref_number = date('YmdHis') . uniqid();
         $ref_number = "Wallet_".$ref_number;

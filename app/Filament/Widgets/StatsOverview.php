@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\User;
+use App\Models\PaymentIntegration;
 use Illuminate\Support\Facades\Http;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -45,6 +46,51 @@ class StatsOverview extends BaseWidget
         return $balance;
         
     }
+
+
+
+    public function getMyVtPassBalance(){
+        $balance_mi = 0;
+
+        $response = Http::withHeaders([
+            'api-key' => PaymentIntegration::first()->vtpass_api_key,
+            'public-key' => PaymentIntegration::first()->vtpass_public_key,
+            'Content-Type' => 'application/json',
+
+        ])->get('https://api-service.vtpass.com/api/balance');
+        
+           // dd($response);
+
+        // Check if the request was successful
+        if ($response->successful()) {
+            // Request was successful, handle the response
+            $responseData = $response->json();
+            
+            $balance_mi = $responseData['contents']['balance'];
+
+        } else {
+
+            $this->dispatch('alert',
+                title: 'ERROR BLNC',
+                text: 'Something went wrong. Try again or chat our reps!',
+                button: 'Got it',
+                type: 'error'
+
+            );
+
+            return;
+            
+            //dd();
+
+        }
+
+
+        return $balance_mi;
+    }
+
+
+
+
     protected function getStats(): array
     {
 
@@ -65,7 +111,7 @@ class StatsOverview extends BaseWidget
                 -> color('danger')
             ,
          
-            Stat::make(' VTPass Wallet Balance', SELF::CURRENCY_SIGN.SELF::ADMIN_BALANCE)
+            Stat::make(' VTPass Wallet Balance', SELF::CURRENCY_SIGN.$this->getMyVtPassBalance())
                 ->chart([7, 2, 10, 3, 15, 4, 17]) 
                 -> color('success')
             ,

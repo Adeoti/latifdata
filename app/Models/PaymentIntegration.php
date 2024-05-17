@@ -16,6 +16,11 @@ class PaymentIntegration extends Model
         'monnify_bvn',
         'automated_charges',
 
+        'monnify_base_url',
+        'vtpass_api_key',
+        'vtpass_public_key',
+        'vtpass_secret_key',
+
         'paystack_secret_key',
         'paystack_live_key',
 

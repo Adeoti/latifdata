@@ -11,6 +11,7 @@ use App\Models\Beneficiary;
 use App\Models\Transaction;
 use App\Models\MobileAirtime;
 use App\Models\CableSubscription;
+use App\Models\PaymentIntegration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Filament\Forms\Components\Select;
@@ -153,10 +154,10 @@ class CableSubscriptions extends Page
                                             
                                             //Send a verify request to the VTPASS Endpoint...
                                             $response = Http::withHeaders([
-                                                'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-                                                'secret-key' => 'SK_6320c831de33e325dac37e25f43c027a6dc09877a27',
+                                                'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                                                'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                                                 'Content-Type' => 'application/json'
-                                            ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
+                                            ])->post('https://api-service.vtpass.com/api/merchant-verify', [
                                                 'billersCode' => $state,
                                                 'serviceID' => $get('cableType'),
                                             ]);
@@ -464,10 +465,10 @@ public function purchase(): void
 
                 //Send a verify request to the VTPASS Endpoint...
                 $response = Http::withHeaders([
-                    'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-                    'secret-key' => 'SK_6320c831de33e325dac37e25f43c027a6dc09877a27',
+                    'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                    'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'
-                ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
+                ])->post('https://api-service.vtpass.com/api/merchant-verify', [
                     'billersCode' => $decoder_number,
                     'serviceID' => $service_id,
                 ]);
@@ -574,8 +575,8 @@ public function purchase(): void
 
 
                 $responseCable = Http::withHeaders([
-                    'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-                    'secret-key' => 'SK_6320c831de33e325dac37e25f43c027a6dc09877a27',
+                    'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                    'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'
                 ])->post(trim($endpoint), $payload);
 

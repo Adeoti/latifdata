@@ -3,6 +3,7 @@
 namespace App\Filament\Customer\Pages;
 
 use App\Models\ElectricityIntegration;
+use App\Models\PaymentIntegration;
 use Carbon\Carbon;
 use Filament\Forms\Set;
 
@@ -126,10 +127,10 @@ class Electricity extends Page
                                             
                                             //Send a verify request to the VTPASS Endpoint...
                                             $response = Http::withHeaders([
-                                                'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-                                                'secret-key' => 'SK_6320c831de33e325dac37e25f43c027a6dc09877a27',
+                                                'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                                                'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                                                 'Content-Type' => 'application/json'
-                                            ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
+                                            ])->post('https://api-service.vtpass.com/api/merchant-verify', [
                                                 'billersCode' => $state,
                                                 'serviceID' => $get('service_id'),
                                                 'type' => $get('meter_type'),
@@ -398,27 +399,39 @@ public function purchase(): void
         $balance_mi = 0;
 
         $response = Http::withHeaders([
-            'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-            'public-key' => 'PK_635c62becefdcf3c266258fd918c910c6680349d04d',
-        ])->get('https://sandbox.vtpass.com/api/balance');
+            'api-key' => PaymentIntegration::first()->vtpass_api_key,
+            'public-key' => PaymentIntegration::first()->vtpass_public_key,
+            'Content-Type' => 'application/json',
+
+        ])->get('https://api-service.vtpass.com/api/balance');
         
-            dd($response);
+           // dd($response);
 
         // Check if the request was successful
         if ($response->successful()) {
             // Request was successful, handle the response
             $responseData = $response->json();
             
-            dd($responseData);
+            $balance_mi = $responseData['contents']['balance'];
 
         } else {
+
+            $this->dispatch('alert',
+                title: 'ERROR BLNC',
+                text: 'Something went wrong. Try again or chat our reps!',
+                button: 'Got it',
+                type: 'error'
+
+            );
+
+            return;
             
             //dd();
 
         }
 
 
-       // return $balance_mi;
+        return $balance_mi;
     }
 
     public function buyElectricityFromVtPass($requestId,$amount_to_pay,$phone_number,$meter_number,$service_id,$meter_type,$product_amount,$electricity_charges,$product_vendor){
@@ -427,7 +440,7 @@ public function purchase(): void
 
         $requestId .= "_ELECTRICITY";
 
-       // $this->getMyVtPassBalance();
+            // $this->getMyVtPassBalance();
 
             //Check my balance before moving on...
            // $myVtPassBalance = $this->getMyVtPassBalance();
@@ -439,7 +452,7 @@ public function purchase(): void
                 $new_balance = (double)$old_balance - (double)$amount_to_pay;
                 $transactionStatus = "pending";
                 $temporary_message = "Electricity subscription of ". ucfirst($service_id) ." ".strtoupper($meter_type)." to $meter_number";
-                $endpoint = "https://sandbox.vtpass.com/api/pay";
+                $endpoint = "https://api-service.vtpass.com/api/pay";
                   
                
                 $customerName = $customerName = "";
@@ -452,10 +465,10 @@ public function purchase(): void
 
                 //Send a verify request to the VTPASS Endpoint...
                 $response = Http::withHeaders([
-                    'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-                    'secret-key' => 'SK_6320c831de33e325dac37e25f43c027a6dc09877a27',
+                    'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                    'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'
-                ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
+                ])->post('https://api-service.vtpass.com/api/merchant-verify', [
                     'billersCode' => $meter_number,
                     'serviceID' => $service_id,
                     'type' => $meter_type,
@@ -548,8 +561,8 @@ public function purchase(): void
 
 
                 $responseCable = Http::withHeaders([
-                    'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-                    'secret-key' => 'SK_6320c831de33e325dac37e25f43c027a6dc09877a27',
+                    'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                    'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'
                 ])->post(trim($endpoint), $payload);
 
@@ -659,7 +672,7 @@ public function purchase(): void
                             'alert',
                             type:'warning',
                             title:'Too Low Entry',
-                            text:'Enter a minimum of '.$ngn.number_format(500,2)." and try again.",
+                            text:'Enter a minimum of '.$ngn.number_format(1100,2)." and try again.",
                             button: 'Got it!'
     
                         );

@@ -14,6 +14,14 @@ VTPASS Secret Key:: SK_235d4a93fad76fdb31686ef201a5dc4b517d75f6df5
 
 
 
+Live Keys.....
+
+API Key:::: 97e032e098c91f1b2b88d8ce20c3d108
+PUBLIC KEY:: PK_791317c132d6ab8d58a370296ab31c12fa4efd459ce
+SECRET KEY:: SK_182294eb1c6061fab0612f3ba859fc5f693a340a7ac
+
+
+
 
 
 
