@@ -34,6 +34,7 @@ class CustomerPanelProvider extends PanelProvider
             ->registration() 
             ->passwordReset()
             ->profile(false)
+            ->darkMode(false)
             ->sidebarCollapsibleOnDesktop()
             ->userMenuItems([ 
                 'profile' => MenuItem::make()->url(fn (): string => EditProfile::getUrl())
