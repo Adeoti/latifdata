@@ -94,7 +94,7 @@ class EditProfile extends Page implements HasForms
                     if(auth()->user()->has_accounts == true){
                         return false;
                     }else{
-                        return true;
+                        return false;
                     }
             })
             
@@ -358,7 +358,7 @@ public function update(): void
         $nin =  $this->form->getState()['nin'];
         $bvn_date_of_birth =  $this->form->getState()['bvn_date_of_birth'];
         
-        $this->createMonnifyAccounts($bvn,$nin,$bvn_date_of_birth);
+       // $this->createMonnifyAccounts($bvn,$nin,$bvn_date_of_birth);
    }
     
 
