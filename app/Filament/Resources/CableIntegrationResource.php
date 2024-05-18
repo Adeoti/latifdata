@@ -87,7 +87,7 @@ class CableIntegrationResource extends Resource
 
                 Section::make('Charges')
                         ->collapsible()
-                        ->description('Set the chrages for each package')
+                        ->description('Set the charges for each package')
                         ->schema([
                             
                             TextInput::make('primary_charges')
@@ -129,6 +129,7 @@ class CableIntegrationResource extends Resource
                                     ->required(),
 
                                 TextInput::make('endpoint')
+                                    ->default('https://api-service.vtpass.com/api/pay')
                                     ->required(),
 
                                
@@ -143,6 +144,7 @@ class CableIntegrationResource extends Resource
                                         'epins' => 'epins',
 
                                     ])->searchable()
+                                    ->default('vtpass')
                                     ->required()
                                 
                                 ,
