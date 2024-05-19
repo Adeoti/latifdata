@@ -57,7 +57,7 @@
             @if (!empty($emailRecipient))
                 <p>Hi 
                     
-                    {{$emailRecipient}},
+                    <b>{{$emailRecipient}},</b>
                 
                 </p>
             @endif
