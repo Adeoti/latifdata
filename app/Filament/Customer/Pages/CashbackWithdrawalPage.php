@@ -7,8 +7,9 @@ use App\Models\User;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use App\Models\Transaction;
-use App\Models\MobileAirtime;
 use App\Models\SiteSettings;
+use App\Models\MobileAirtime;
+use function Filament\authorize;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Filament\Forms\Components\Select;
@@ -16,9 +17,9 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
 
-use function Filament\authorize;
+use Filament\Notifications\Notification;
+use Filament\Forms\Concerns\InteractsWithForms;
 
 class CashbackWithdrawalPage extends Page implements HasForms
 {
@@ -190,6 +191,13 @@ class CashbackWithdrawalPage extends Page implements HasForms
                             ]);
 
 
+                           // $recipient = User::where('email',$user_email)->first(); //auth()->user();    
+                            Notification::make()
+                            ->title($success_msg)
+                            ->icon('heroicon-m-wallet')
+                            ->iconColor('success')
+                            ->sendToDatabase(auth()->user());
+                            
                             $this->dispatch(
                                 'alert',
                                 title:'Successful',
