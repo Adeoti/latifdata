@@ -2,6 +2,7 @@
 
 namespace App\Filament\Customer\Pages;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use Filament\Forms\Form;
@@ -11,13 +12,16 @@ use App\Models\SiteSettings;
 use App\Models\MobileAirtime;
 use function Filament\authorize;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
+use App\Mail\SweetBillNotificationEmail;
 use Filament\Forms\Components\TextInput;
-
 use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
 
@@ -55,6 +59,18 @@ class CashbackWithdrawalPage extends Page implements HasForms
     }
 
     public $ngn = "₦";
+
+    public function sendEmail($toEmail,$subject,$email_message,$emailRecipient){    
+
+        try {
+            $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,$emailRecipient));
+            
+        } catch (Exception $e) {
+           
+            Log::error('Unable to send email '. $e->getMessage() );
+        }
+    
+    }
 
     public function form(Form $form): Form
     {
