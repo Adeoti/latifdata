@@ -64,7 +64,7 @@ class CashbackWithdrawalPage extends Page implements HasForms
         return $form
             ->schema([
                 Section::make('Withdrawal Note:')
-                    ->description("You can only withdraw your cashback if you have at least $ngn".number_format(SiteSettings::first()->cashbak_cap_amount,2))
+                    ->description("You can only withdraw your cashback if you have at least $ngn".number_format(SiteSettings::first()->cashbak_cap_amount,2)." in your cashback balance")
                     ->schema([
 
 
