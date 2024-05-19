@@ -194,9 +194,16 @@ class CashbackWithdrawalPage extends Page implements HasForms
                            // $recipient = User::where('email',$user_email)->first(); //auth()->user();    
                             Notification::make()
                             ->title($success_msg)
-                            ->icon('heroicon-m-wallet')
+                            ->icon('heroicon-o-banknotes')
                             ->iconColor('success')
                             ->sendToDatabase(auth()->user());
+
+
+                             //Send Email to the recipient
+
+                            $message = $success_msg." Your new main balance is "."$ngn".number_format($new_balance,2)." and your cashback balance is "."$ngn".number_format($new_cashback,2) ;
+                            $subject = "Cashback Withdrawal";
+                            $this->sendEmail(auth()->user()->email,$subject,$message,auth()->user()->name);
                             
                             $this->dispatch(
                                 'alert',
