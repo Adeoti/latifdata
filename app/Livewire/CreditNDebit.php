@@ -2,14 +2,18 @@
 
 namespace App\Livewire;
 
+use Exception;
 use App\Models\User;
 use Livewire\Component;
 use Filament\Forms\Form;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
+use App\Mail\SweetBillNotificationEmail;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\RichEditor;
@@ -92,7 +96,18 @@ class CreditNDebit extends Component implements HasForms
      }
  
  
- 
+     public function sendEmail($toEmail,$subject,$email_message,$emailRecipient){    
+
+        try {
+            $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,$emailRecipient));
+            
+        } catch (Exception $e) {
+           
+            Log::error('Unable to send email '. $e->getMessage() );
+        }
+    
+    }
+    
      public function creditNDebit(): void
     {
 
@@ -156,6 +171,19 @@ class CreditNDebit extends Component implements HasForms
 
 
 
+                //Insert record into the transaction tb
+            Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'wallet',
+                'note' => $note,
+                'operator_id' => auth()->id(),
+                'status' => 'successful',
+                'amount' => $this->ngn."".number_format($amount,2),
+                'old_balance' => $this->ngn."".number_format($user_old_balance,2),
+                'new_balance' => $this->ngn."".number_format($new_balance,2),
+                'reference_number' => $ref_number
+                
+            ]);
                             //..............................
                                                 //....Send DB Notification + Sweet Alert
                                                 //..............................
@@ -179,21 +207,16 @@ class CreditNDebit extends Component implements HasForms
                 ->iconColor('primary')
                 ->sendToDatabase($recipient);
             
+
+                //Send Email to the recipient
+
+                $message = "Your wallet was $notification_tag with $this->ngn".number_format($amount,2)." on ".date("l jS \of F Y h:i:s A").". Your new balance is ".$this->ngn."".number_format($new_balance,2).".";
+                $subject = "Wallet ".ucfirst($notification_tag);
+                $emailRecipient = $recipient->name;
+                $this->sendEmail($user_email,$subject,$message,$emailRecipient);
                     
 
-            //Insert record into the transaction tb
-            Transaction::create([
-                'user_id' => $user->id,
-                'type' => 'wallet',
-                'note' => $note,
-                'operator_id' => auth()->id(),
-                'status' => 'successful',
-                'amount' => $this->ngn."".number_format($amount,2),
-                'old_balance' => $this->ngn."".number_format($user_old_balance,2),
-                'new_balance' => $this->ngn."".number_format($new_balance,2),
-                'reference_number' => $ref_number
-                
-            ]);
+            
                 
             
                 

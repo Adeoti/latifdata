@@ -2,15 +2,19 @@
 
 namespace App\Livewire;
 
-use App\Models\SiteSettings;
+use Exception;
 use App\Models\User;
 use Livewire\Component;
 use Filament\Forms\Form;
 use App\Models\Transaction;
+use App\Models\SiteSettings;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
+use App\Mail\SweetBillNotificationEmail;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\RichEditor;
@@ -79,7 +83,18 @@ class ShareWallet extends Component implements HasForms
     }
 
 
+    public function sendEmail($toEmail,$subject,$email_message,$emailRecipient){    
 
+        try {
+            $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,$emailRecipient));
+            
+        } catch (Exception $e) {
+           
+            Log::error('Unable to send email '. $e->getMessage() );
+        }
+    
+    }
+    
     public function shareWallet(): void
    {
 
@@ -193,13 +208,7 @@ class ShareWallet extends Component implements HasForms
             //    ->seconds(15)
             //    ->send();
             //    number_format($amount_remain,2);
-               $this->dispatch(
-                'alert',
-                type: 'success',
-                title: 'Successful!',
-                text: "You've successfully shared $this->ngn".number_format($amount,2)." with ".$user_email." Your balance is $this->ngn".number_format($sender_new_balance,2),
-                button: 'Got it!'
-            );
+             
 
 
 
@@ -266,8 +275,26 @@ class ShareWallet extends Component implements HasForms
            //..............................
            //....Send DB Notification + Sweet Alert
            //..............................
-           
+
+           $this->dispatch(
+            'alert',
+            type: 'success',
+            title: 'Successful!',
+            text: "You've successfully shared $this->ngn".number_format($amount,2)." with ".$user_email." Your balance is $this->ngn".number_format($sender_new_balance,2),
+            button: 'Got it!'
+        );
                
+
+
+
+
+            //Send Email to the recipient
+
+            $message = "You received " . $this->ngn . "" . number_format($amount, 2) . " from " . $sender->email." on ".date("l jS \of F Y h:i:s A").". Your new balance is ".$this->ngn."".number_format($recipient_new_balance,2).".";
+            $subject = "You just earned ".$this->ngn . "" . number_format($amount, 2);
+            $emailRecipient = $recipient->name;
+            $this->sendEmail($user_email,$subject,$message,$emailRecipient);
+
 
        } else {
            // Handle the case where user is not found

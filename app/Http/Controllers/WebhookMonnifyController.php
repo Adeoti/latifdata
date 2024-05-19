@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Transaction;
@@ -9,7 +10,10 @@ use Illuminate\Http\Request;
 use App\Models\PaymentTracker;
 use App\Models\PaymentIntegration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SweetBillNotificationEmail;
 use Filament\Notifications\Notification;
 
 class WebhookMonnifyController extends Controller
@@ -112,7 +116,17 @@ class WebhookMonnifyController extends Controller
     //{ 
       //  return response()->json(['message' => 'Webhook received successfully Fake'], 200);
     //}
+    public function sendEmail($toEmail,$subject,$email_message,$emailRecipient){    
 
+        try {
+            $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,$emailRecipient));
+            
+        } catch (Exception $e) {
+           
+            Log::error('Unable to send email '. $e->getMessage() );
+        }
+    
+    }
    public function handleWebhook(Request $request)
     {   
         // Extract Monnify signature from the request header
@@ -231,6 +245,16 @@ class WebhookMonnifyController extends Controller
                 ->icon('heroicon-c-wallet')
                 ->iconColor('primary')
                 ->sendToDatabase($recipient);
+
+
+
+                
+            //Send Email to the recipient
+
+            $message = "Your wallet has been credited the sum of  $this->ngn".number_format($amountPaid,2)." from your automated funding  on ".date("l jS \of F Y h:i:s A").". Your new balance is ".$this->ngn."".number_format($new_balance,2).".";
+            $subject = "Automated Funding of ".$this->ngn . "" . number_format($amountPaid, 2);
+            $emailRecipient = $recipient->name;
+            $this->sendEmail($customerEmail,$subject,$message,$emailRecipient);
 
 
 

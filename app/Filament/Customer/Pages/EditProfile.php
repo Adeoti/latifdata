@@ -2,13 +2,16 @@
 
 namespace App\Filament\Customer\Pages;
 
-use App\Models\PaymentIntegration;
-use App\Models\User;
+use App\Mail\SweetBillNotificationEmail;
+use Exception;
 use Carbon\Carbon;
+use App\Models\User;
 use Filament\Actions;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Actions\Action;
+use App\Models\PaymentIntegration;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
@@ -16,6 +19,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Illuminate\Support\Facades\Mail;
 
 class EditProfile extends Page implements HasForms
 {
@@ -346,11 +350,25 @@ if ($decodedAccountResponse['requestSuccessful']) {
 // }
 
 
+
+public function sendEmail($toEmail,$subject,$email_message){    
+
+    try {
+        $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,));
+        
+    } catch (Exception $e) {
+       
+        Log::error('Unable to send email '. $e->getMessage() );
+    }
+
+}
+
+
  
 public function update(): void
 {
 
-    //$this -> testWebhook();
+   
 
 
    if(!auth()->user()->has_accounts){
