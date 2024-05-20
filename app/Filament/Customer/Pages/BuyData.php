@@ -192,7 +192,7 @@ class BuyData extends Page implements HasForms
             
                                                 }
 
-                                                $options[$item->id] = $item->plan_size . " | ".$item->validity." | $this->ngn".number_format($data_price,2)." | Cashback = ".$this->ngn."".number_format($cashback_price,2);
+                                                $options[$item->id] = $item->plan_size . " - ".$item->validity." - $this->ngn".number_format($data_price,2);
 
                                             }
 
