@@ -148,12 +148,57 @@ class BuyData extends Page implements HasForms
                                    
                                     function(callable $get){
                                       //  $package = MobileData::where('network',$get('network'));
-                                        $package = MobileData::where('network',$get('network'))->where('plan_type',$get('plan_type'))->where('active_status',true);
-
+                                        $package = MobileData::where('network',$get('network'))->where('plan_type',$get('plan_type'))->where('active_status',true)->get();
+                                        
+                                        $options = [];
+                                        
                                         if(! $package){
                                             return null;
                                         }else{
-                                            return $package->pluck('plan_size','id');
+
+
+
+
+                                            $user_package = auth()->user()->package;
+                                            $cashback_price = $data_price = 0;
+
+                                          
+
+                                            foreach($package as $item){
+
+                                                switch($user_package){
+
+                                                    case 'primary':
+                                                        $data_price = MobileData::find($item->id)->primary_price;
+                                                        $cashback_price = MobileData::find($item->id)->primary_cashback;
+                                                    break;
+            
+                                                    case 'agent':
+                                                        $data_price = MobileData::find($item->id)->agent_price;
+                                                        $cashback_price = MobileData::find($item->id)->agent_cashback;
+                                                    break;
+            
+                                                    case 'special':
+                                                        $data_price = MobileData::find($item->id)->special_price;
+                                                        $cashback_price = MobileData::find($item->id)->special_cashback;
+                                                    break;
+            
+                                                    case 'api':
+                                                        $data_price = MobileData::find($item->id)->api_price;
+                                                        $cashback_price = MobileData::find($item->id)->api_cashback;
+                                                    break;
+            
+            
+            
+                                                }
+
+                                                $options[$item->id] = $item->plan_size . " | ".$item->validity." | $this->ngn".number_format($data_price,2)." | Cashback = ".$this->ngn."".number_format($cashback_price,2);
+
+                                            }
+
+                                            //return $package->pluck('plan_size','id');
+                                            return $options;
+
                                         }
                                     }
                                 )
