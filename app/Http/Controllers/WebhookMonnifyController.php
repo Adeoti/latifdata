@@ -241,7 +241,7 @@ class WebhookMonnifyController extends Controller
                 
                 
                 Notification::make()
-                ->title("Your wallet has been credited the sum of  $this->ngn".number_format($amountPaid,2)." from your automated funding.")
+                ->title("Your wallet has been credited with the sum of  $this->ngn".number_format($amountPaid,2)." from your automated funding.")
                 ->icon('heroicon-c-wallet')
                 ->iconColor('primary')
                 ->sendToDatabase($recipient);
@@ -251,7 +251,7 @@ class WebhookMonnifyController extends Controller
                 
             //Send Email to the recipient
 
-            $message = "Your wallet has been credited the sum of  $this->ngn".number_format($amountPaid,2)." from your automated funding  on ".date("l jS \of F Y h:i:s A").". Your new balance is ".$this->ngn."".number_format($new_balance,2).".";
+            $message = "Your wallet has been credited with the sum of  $this->ngn".number_format($amountPaid,2)." from your automated funding  on ".date("l jS \of F Y h:i:s A").". Your new balance is ".$this->ngn."".number_format($new_balance,2).".";
             $subject = "Automated Funding of ".$this->ngn . "" . number_format($amountPaid, 2);
             $emailRecipient = $recipient->name;
             $this->sendEmail($customerEmail,$subject,$message,$emailRecipient);
