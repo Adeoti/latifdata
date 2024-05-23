@@ -119,13 +119,6 @@ class ProcessDataPurchase implements ShouldQueue
                     'message' => "Authentication Error! Try again.",
                 ]);
 
-                 $this->dispatch(
-                     'alert',
-                     type: 'error',
-                     title: 'Error Occurred',
-                     text: "Authentication Error! Try again.",
-                     button: 'Got it!'
-                 );
                  return;
  
              }
@@ -153,13 +146,7 @@ class ProcessDataPurchase implements ShouldQueue
                         'message' => "Something went wrong and we will fix it soon!",
                     ]);
 
-                     $this->dispatch(
-                         'alert',
-                         type:'warning',
-                         title:'Transaction Failed',
-                         text:'Something went wrong and we will fix it soon',
-                         button: 'Got it!',
-                     );
+                    
                      return;
                  }
  
@@ -279,13 +266,6 @@ class ProcessDataPurchase implements ShouldQueue
                     ]);
 
 
-                         $this->dispatch(
-                                 'alert',
-                                 type:'success',
-                                 title:'Successful',
-                                 text:"You've successfully sold ".strtoupper($temporary_network)." $temporary_plan_type of ".$temporary_plan_size." Data to ".$phone_number." on ".date("l jS \of F Y h:i:s A").".",
-                                 button:'Great!'
-                             );
  
  
  
@@ -325,14 +305,7 @@ class ProcessDataPurchase implements ShouldQueue
                         'message' => "Something went wrong. Please try again!",
                     ]);
                             
-                         $this->dispatch(
-                             'alert',
-                             type:'error',
-                             title:'Error Occurred',
-                             text:'Something went wrong. Please try again!',
-                             button: 'Got it!'
- 
-                         );
+                       
  
                      }
                          }
