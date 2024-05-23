@@ -152,7 +152,7 @@ class CashbackWithdrawalPage extends Page implements HasForms
 
 
 
-        $requestId .= "_WITHDRAWAL";
+        $requestId = "WITHDRAWAL_".$requestId;
 
       
         

@@ -186,7 +186,7 @@ class WebhookMonnifyController extends Controller
                     $requestId .= $this->generateRandomString(12 - strlen($requestId));
                 }
 
-                $requestId .= "_AUTOMATED";
+                $requestId = "AUTOMATED_".$requestId;
 
                 $transactionReference = $eventPayload['transactionReference'];
 
