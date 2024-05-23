@@ -36,8 +36,8 @@ class UpgradeLevel extends Component implements HasForms
     {
         $user_balance = number_format(User::find(auth()->id())->balance,2);
 
-        $current_package = User::find(auth()->id())->first()->package;
-        $current_package = ucfirst($current_package);
+        $current_package = auth()->user()->package;
+        $current_package = strtoupper($current_package);
         return $form
             ->schema([
                 Section::make("👉 Your balance is: $this->ngn".$user_balance)
