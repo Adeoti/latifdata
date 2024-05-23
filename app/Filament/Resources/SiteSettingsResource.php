@@ -149,18 +149,23 @@ class SiteSettingsResource extends Resource
                     ->label('Default Theme'),
 
                 TextColumn::make('agent_charges')
+                    ->money('NGN')
                     ->label('Agent Charges'),
 
                 TextColumn::make('special_charges')
+                    ->money('NGN')
                     ->label('Special Charges'),
 
                 TextColumn::make('api_charges')
+                    ->money('NGN')
                     ->label('API Charges'),
 
                 TextColumn::make('portal_dev_charges')
+                    ->money('NGN')
                     ->label('Portal Dev Charges'),
 
                 TextColumn::make('wallet_to_charges')
+                    ->money('NGN')
                     ->label('Wallet 2 Wallet Charges'),
 
                 

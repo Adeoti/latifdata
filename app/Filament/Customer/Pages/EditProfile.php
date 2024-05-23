@@ -2,6 +2,7 @@
 
 namespace App\Filament\Customer\Pages;
 
+use App\Jobs\ProcessAirtimePurchase;
 use App\Mail\SweetBillNotificationEmail;
 use Exception;
 use Carbon\Carbon;
@@ -351,25 +352,24 @@ if ($decodedAccountResponse['requestSuccessful']) {
 
 
 
-public function sendEmail($toEmail,$subject,$email_message){    
+// public function sendEmail($toEmail,$subject,$email_message){    
 
-    try {
-        $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,));
+//     try {
+//         $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,));
         
-    } catch (Exception $e) {
+//     } catch (Exception $e) {
        
-        Log::error('Unable to send email '. $e->getMessage() );
-    }
+//         Log::error('Unable to send email '. $e->getMessage() );
+//     }
 
-}
+// }
 
 
  
 public function update(): void
 {
 
-   
-
+ 
 
    if(!auth()->user()->has_accounts){
         $bvn = $this->form->getState()['bvn'];

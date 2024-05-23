@@ -1,5 +1,10 @@
 <x-filament-panels::page>
 
+
+@if ($polling)
+        <div wire:poll.750ms="pollTransaction">{{ $testMesg }}</div>
+@endif
+
 <div>
     <form wire:submit="buyData">
         {{ $this->form }}
@@ -55,7 +60,7 @@
 
             Swal.fire({
             title: alertData.title,
-            text: alertData.text,
+            html: alertData.text,
             icon: alertData.type,
             confirmButtonText: alertData.button
             })
