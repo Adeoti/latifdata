@@ -14,7 +14,7 @@ class UserPolicy
     {
         //
 
-        return true; //$user->view_user;
+        return $user->view_user;
     }
 
     /**
@@ -23,7 +23,7 @@ class UserPolicy
     public function view(User $user, User $model): bool
     {
         //
-        return true; //$user->view_user;
+        return $user->view_user;
     }
 
     /**
@@ -32,7 +32,7 @@ class UserPolicy
     public function create(User $user): bool
     {
         //
-        return true; //$user->add_user;
+        return $user->add_user;
     }
 
     /**
@@ -41,7 +41,7 @@ class UserPolicy
     public function update(User $user, User $model): bool
     {
         //
-        return  true; //$user->edit_user;
+        return  $user->edit_user;
 
     }
 
