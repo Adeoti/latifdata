@@ -100,8 +100,8 @@ class UserResource extends Resource
                             'special' => 'Special',
                             'api' => 'API'
                         ]),
-                        TextInput::make(' referral_code'),
-                        TextInput::make(' transaction_pin')
+                        TextInput::make('referral_code'),
+                        TextInput::make('transaction_pin')
                             ->numeric()
                             ->maxLength(4)
                     
@@ -128,6 +128,8 @@ class UserResource extends Resource
                         TextInput::make('paystack_acct')->numeric(),
                         TextInput::make('flutterwave_acct')->numeric(),
                     ])->columnSpan(4)
+                    ->collapsible()
+                    ->collapsed(true)
 
                     
                 ])

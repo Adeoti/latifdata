@@ -30,6 +30,11 @@ class AdminDataTransactions extends Page implements HasTable
     protected static string $view = 'filament.pages.admin-data-transactions';
 
 
+    public static function canAccess(): bool
+    {
+       return auth()->user()->can_view_transactions;
+    }
+    
     public function table(Table $table): Table
 {
     return $table

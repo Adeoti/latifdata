@@ -13,6 +13,7 @@ class APIControls extends Page
     protected static ?int $navigationSort = 1;
 
     protected static ?string $title="API Control Panel";
+    protected static bool $isDiscovered = false;
     protected ?string $heading = "API Settings";
     protected ?string $subheading = "Control Your Endpoints to Dispense From.";
     protected static ?string $navigationLabel = "API Settings";

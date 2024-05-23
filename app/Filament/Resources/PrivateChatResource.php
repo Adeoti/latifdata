@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PrivateChatResource extends Resource
 {
     protected static ?string $model = PrivateChat::class;
+    protected static bool $isDiscovered = false;
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
     protected static ?string $navigationGroup = "Messaging";

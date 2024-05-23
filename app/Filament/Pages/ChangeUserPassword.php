@@ -29,5 +29,12 @@ class ChangeUserPassword extends Page
 
 
 
+
+
+    public static function canAccess(): bool
+    {
+       return auth()->user()->can_reset_password;
+    }
+
     
 }

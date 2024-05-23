@@ -45,6 +45,11 @@ class AdminAllTransactions extends Page implements HasTable
 // }
 
 
+public static function canAccess(): bool
+    {
+       return auth()->user()->can_view_transactions;
+    }
+
 public function table(Table $table): Table
     {
 

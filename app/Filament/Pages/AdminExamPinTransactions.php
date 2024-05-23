@@ -28,6 +28,10 @@ class AdminExamPinTransactions extends Page implements HasTable
 
     protected static string $view = 'filament.pages.admin-exam-pin-transactions';
 
+    public static function canAccess(): bool
+    {
+       return auth()->user()->can_view_transactions;
+    }
 
     public function table(Table $table): Table
 {

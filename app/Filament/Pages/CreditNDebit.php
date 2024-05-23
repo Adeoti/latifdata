@@ -21,10 +21,10 @@ class CreditNDebit extends Page
 
     
     
-    // public static function canAccess(): bool
-    // {
-    //    return auth()->user()->canManageSettings();
-    // }
+    public static function canAccess(): bool
+    {
+       return auth()->user()->can_credit_customer;
+    }
 
 
 

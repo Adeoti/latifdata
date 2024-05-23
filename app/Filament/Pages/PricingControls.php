@@ -17,6 +17,7 @@ class PricingControls extends Page
     protected ?string $heading = "Pricing Settings";
     protected ?string $subheading = "Set and Adjust Your Preferred Pricing.";
     protected static ?string $navigationLabel = "Pricing Settings";
+    protected static bool $isDiscovered = false;
 
 
      // public static function canAccess(): bool
