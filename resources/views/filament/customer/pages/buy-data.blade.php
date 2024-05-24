@@ -2,7 +2,7 @@
 
 
 @if ($polling)
-        <div wire:poll.750ms="pollTransaction">{{ $testMesg }}</div>
+        <div wire:poll.750ms="pollTransaction"></div>
 @endif
 
 <div>

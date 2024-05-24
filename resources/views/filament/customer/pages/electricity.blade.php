@@ -3,6 +3,9 @@
 <div>
     
 
+@if ($polling)
+    <div wire:poll.750ms="pollTransaction"></div>
+@endif
 
     <x-filament-panels::form wire:submit="purchase">
         {{ $this->form }}
