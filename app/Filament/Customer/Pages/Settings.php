@@ -12,4 +12,7 @@ class Settings extends Page
 
     protected static ?int $navigationSort = 28;
     protected static ?string $navigationLabel = "Core Settings";
+    protected static bool $shouldRegisterNavigation = false;
+
+
 }
