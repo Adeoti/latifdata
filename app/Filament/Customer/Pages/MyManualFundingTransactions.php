@@ -33,7 +33,7 @@ class MyManualFundingTransactions extends Page implements HasTable
     return $table
     ->query(
         // ...
-        Transaction::where('user_id', auth()->id())->where('type','wallet')->orderBy('id', 'desc')->limit(8)
+        Transaction::where('user_id', auth()->id())->where('type','wallet')->orWhere('type','automated')->orderBy('id', 'desc')->limit(8)
     )
     ->columns([
         //

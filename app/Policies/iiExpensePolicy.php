@@ -2,28 +2,28 @@
 
 namespace App\Policies;
 
-use App\Models\Saving;
+use App\Models\Expense;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class SavingPolicy
+class iiExpensePolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
-    {
-        //
-        return $user->view_savings;
-    }
+    // public function viewAny(User $user): bool
+    // {
+    //     //
+    //     return auth()->user()->view_expenses;
+    // }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Saving $saving): bool
+    public function view(User $user, Expense $expense): bool
     {
         //
-        return $user->view_savings;
+        return $user->view_expenses;
     }
 
     /**
@@ -32,42 +32,42 @@ class SavingPolicy
     public function create(User $user): bool
     {
         //
-        return $user->add_savings;
+        return $user->add_expenses;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Saving $saving): bool
+    public function update(User $user, Expense $expense): bool
     {
         //
-        return $user->edit_savings;
+        return $user->edit_expenses;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Saving $saving): bool
+    public function delete(User $user, Expense $expense): bool
     {
         //
-        return $user->delete_savings;
+        return $user->delete_expenses;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Saving $saving): bool
+    public function restore(User $user, Expense $expense): bool
     {
         //
-        return $user->delete_savings;
+        return $user->delete_expenses;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Saving $saving): bool
+    public function forceDelete(User $user, Expense $expense): bool
     {
         //
-        return $user->delete_savings;
+        return $user->delete_expenses;
     }
 }
