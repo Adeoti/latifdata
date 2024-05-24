@@ -80,6 +80,8 @@ class MyBeneficiaryResource extends Resource
                 TextColumn::make('number')
                     ->sortable()
                     ->searchable()
+                    ->copyable()
+                    ->copyMessage('Phone number copied!')
                 ,
                 TextColumn::make('network')
                     ->sortable()
