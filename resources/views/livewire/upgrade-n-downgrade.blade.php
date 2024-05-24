@@ -1,6 +1,8 @@
 <div>
-    <form wire:submit="upgradeNdowngrade">
+  
 
+
+    <form wire:submit="upgradeNdowngrade">
         {{ $this->form }}
         <div style="padding:19px 0px;">
 
