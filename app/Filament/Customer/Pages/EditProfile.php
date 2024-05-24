@@ -31,9 +31,10 @@ class EditProfile extends Page implements HasForms
     protected static ?string $navigationIcon = 'heroicon-o-cog';
 
     protected static string $view = 'filament.customer.pages.edit-profile';
+    protected static ?string $navigationGroup = "Settings";
 
 
-    protected static ?string $title = "Core Settings";
+    protected static ?string $title = "Profile Settings";
 
     protected static ?int $navigationSort = 40;
 
