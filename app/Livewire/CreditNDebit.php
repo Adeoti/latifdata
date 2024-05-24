@@ -117,7 +117,7 @@ class CreditNDebit extends Component implements HasForms
         $note = $this->form->getState()['note'];
         $new_balance = $notification_tag = "";
         $ref_number = date('YmdHis') . uniqid();
-        $ref_number = "Wallet_".$ref_number;
+        $ref_number = "MANUAL_".$ref_number;
 
         
     
