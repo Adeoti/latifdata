@@ -39,6 +39,7 @@ class RecentActivitiesWidget extends BaseWidget
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Dated')
+                    ->date("F d, Y h:i:s A")
                     ->sortable(),
                 
                 TextColumn::make('status')
