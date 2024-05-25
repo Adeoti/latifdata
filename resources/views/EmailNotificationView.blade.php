@@ -66,7 +66,7 @@
         </div>
         <div class="email-footer">
             <p>&copy; {{ date('Y') }} {{$appName}}. All rights reserved.</p>
-            <p><a href="{{ url('/') }}" style="color: #fe5006; text-decoration: none;">Visit our website</a></p>
+            <p><a href="https://wa.link/sbdozm" style="color: #fe5006; text-decoration: none;">Chat Us on WhatsApp</a></p>
         </div>
     </div>
 </body>
