@@ -205,18 +205,6 @@ public function updateMonnifyAccounts($bvn,$nin){
 // Check if the request was successful
 if ($decodedAccountResponse['requestSuccessful']) {
     // Extract the decodedAccountResponse body
-    $responseBody = $decodedAccountResponse['responseBody'];
-
-    // Access individual fields in the decodedAccountResponse body
-    $contractCode = $responseBody['contractCode'];
-    $accountReference = $responseBody['accountReference'];
-    $customerEmail = $responseBody['customerEmail'];
-    $accounts = $responseBody['accounts'];
-    
-
-
-     // Convert the accounts array to JSON
-     $accountsJson = json_encode($accounts);
 
      // Update the user's accounts column with the JSON data
      auth()->user()->update([
@@ -290,16 +278,16 @@ public function update(): void
     }
 
 
-    // auth()->user()->update(
-    //     $this->form->getState()
-    // );
-    //     $this->dispatch(
-    //         'alert',
-    //         type: 'success',
-    //         title: 'Successful!',
-    //         text: "You've successfully Edited Your Profile!",
-    //         button: 'Happy!'
-    //     );
+    auth()->user()->update(
+        $this->form->getState()
+    );
+        $this->dispatch(
+            'alert',
+            type: 'success',
+            title: 'Successful!',
+            text: "You've successfully Edited Your Profile!",
+            button: 'Happy!'
+        );
 }
 
 }
