@@ -152,7 +152,7 @@ class CreateAutomatedAccount implements ShouldQueue
         // Access individual fields in the decodedAccountResponse body
         $contractCode = $responseBody['contractCode'];
         $accountReference = $responseBody['accountReference'];
-        $customerEmail = $responseBody['customerEmail'];
+        
         $accounts = $responseBody['accounts'];
         
     
