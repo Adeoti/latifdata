@@ -12,10 +12,10 @@ class DecoderVerificationController extends Controller
     public function verifyDecoder(Request $request)
     {
         // Validate request headers
-        $request->validate([
-            'decoder_number' => 'required|string',
-            'decoder_type' => 'required|string|in:dstv,gotv,startime',
-        ]);
+        // $request->validate([
+        //     'decoder_number' => 'required|string',
+        //     'decoder_type' => 'required|string|in:dstv,gotv,startime',
+        // ]);
 
         $decoder_number = $request->header('decoder_number');
         $decoder_type = $request->header('decoder_type');
@@ -31,17 +31,17 @@ class DecoderVerificationController extends Controller
         ]);
 
         // Check if the request was successful
-        return $response;
+       // return $response;
         if ($response->successful()) {
             $slicedResponse = json_decode($response->body(), true);
 
             if (array_key_exists('Customer_Name', $slicedResponse['content'])) {
                 $customerName = $slicedResponse['content']['Customer_Name'];
-                $customerAddress = $slicedResponse['content']['Customer_Address'] ?? 'N/A'; // Assuming Customer_Address might be present
+                
 
                 return response()->json([
                     'customer_name' => $customerName,
-                    'customer_address' => $customerAddress,
+                    
                 ], 200);
             } else {
                 return response()->json([
