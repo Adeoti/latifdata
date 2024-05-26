@@ -98,7 +98,7 @@
 
 <h4>Example Request</h4>
 <pre><code>
-curl -X POST http://your-domain.com/api/v1/verify-decoder \
+curl -X POST https://sweetbill.ng/api/v1/verify-decoder \
      -H "email: user@example.com" \
      -H "password: user_password" \
      -H "api_key: user_api_key" \
