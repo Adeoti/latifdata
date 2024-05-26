@@ -109,7 +109,7 @@ curl -X POST https://sweetbill.ng/api/v1/verify-decoder \
 <h3>Response</h3>
 
 <h4>Success</h4>
-<p>If the credentials are valid and the decoder number is successfully verified, the endpoint will return a <code>200 OK</code> status with the customer's name and address.</p>
+<p>If the credentials are valid and the decoder number is successfully verified, the endpoint will return a <code>200 OK</code> status with the customer's name.</p>
 
 <h5>Response Body</h5>
 <pre><code>
