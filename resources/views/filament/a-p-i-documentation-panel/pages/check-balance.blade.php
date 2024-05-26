@@ -10,9 +10,9 @@
 <h3 class="fi-header-heading text-lg font-bold tracking-tight text-gray-950 dark:text-white sm:text-lg">Endpoint</h3>
 
 
-<div class="p-1" style="background-color: #000000; color:#ffffff; border-radius:7px; margin-top:7px;">
+<pre class="p-1" style="background-color: #000000; overflow:auto; color:#ffffff; border-radius:7px; margin-top:7px;">
     GET &rarr; https://sweetbill.ng/api/v1/balance 
-</div>
+</pre>
 
 <br><br>
 <h3 class="fi-header-heading text-lg font-bold tracking-tight text-gray-950 dark:text-white sm:text-lg">Description</h3>
@@ -36,13 +36,13 @@ The following headers are required for authentication:
 <br><br>   
 <h3 class="fi-header-heading text-lg font-bold tracking-tight text-gray-950 dark:text-white sm:text-lg"> Example Request </h3>
 
-    <div class="p-2" style="background-color: #000000; color:#ffffff; border-radius:7px; margin-top:7px;">
+    <pre class="p-2" style="background-color: #000000; overflow:auto; color:#ffffff; border-radius:7px; margin-top:7px;">
         curl -H "email: user@example.com" \
      -H "password: user_password" \
      -H "api_key: user_api_key" \
      https://sweetbill.ng/api/v1/balance
 
-    </div>
+    </pre>
 
     
 
@@ -52,25 +52,25 @@ The following headers are required for authentication:
 
 <p>If the credentials are valid, the endpoint will return a <b>`200 OK`</b> status with the user's balance.</p>
 
-<div class="p-2" style="background-color: #000000; color:#ffffff;">
+<pre class="p-2" style="background-color:  #000000; overflow:auto; color:#ffffff;">
     {<br>
         "balance": 100.00 <br>
 
     }
     
-</div>
+</pre>
 <br>
 <b>Error</b>
 
 <p>If the credentials are invalid or missing, the endpoint will return a <b>`401 Unauthorized`</b> status with an error message.</p>
 
-<div class="p-2" style="background-color: #000000; color:#ffffff;">
+<pre class="p-2" style="background-color: #000000; overflow:auto; color:#ffffff;">
     {<br>
         "error": "Unauthorized" <br>
 
     }
     
-</div>
+</pre>
 
 
 <br>
