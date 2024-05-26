@@ -28,6 +28,7 @@ return new class extends Migration
             $table->dropColumn('account_reference');
             $table->dropColumn('filled_kyc');
             //$table->dropColumn('filled_kyc');
+            //$table->dropColumn('filled_kyc');
         });
     }
 };
