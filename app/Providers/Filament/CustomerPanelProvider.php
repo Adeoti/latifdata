@@ -46,7 +46,7 @@ class CustomerPanelProvider extends PanelProvider
             ->defaultThemeMode(ThemeMode::Light)
             ->navigationItems([
                 NavigationItem::make('API Documentations')
-                    ->url('/api-docs', shouldOpenInNewTab: true)
+                    ->url('/api-docs', shouldOpenInNewTab: false)
                     ->icon('heroicon-o-signal')
                     ->sort(30)
             ])

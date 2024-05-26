@@ -70,6 +70,7 @@ class APIIntroduction extends Page
                         TextInput::make('api_key')
                             ->required()
                             ->password()
+                            ->label('API Key')
                             ->revealable()
                             ->suffixAction(
                                 Action::make('generateNewKey')
@@ -120,23 +121,7 @@ class APIIntroduction extends Page
 
                                     }),
                                 )
-                            ->prefixAction(
-                                Action::make('copyAPIKey')
-                                    ->icon('heroicon-m-clipboard')
-                                    ->requiresConfirmation()
-                                    ->tooltip('Copy Key')
-                                    ->action(function (Set $set, $state) {
-                                        
-
-                                        $vtpass_data = Http::get('https://api-service.vtpass.com/api/service-variations?serviceID=dstv');
-
-                                        dd($vtpass_data->json());
-
-
-
-
-                                    }),
-                                ),
+                           
                                 ]),
                       
                    
