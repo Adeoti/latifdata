@@ -200,7 +200,7 @@ public function updateMonnifyAccounts($bvn,$nin){
         $decodedAccountResponse = json_decode($accountResponse->body(), true);
 
         
-            dd($decodedAccountResponse);
+           // dd($decodedAccountResponse);
 
 // Check if the request was successful
 if ($decodedAccountResponse['requestSuccessful']) {
