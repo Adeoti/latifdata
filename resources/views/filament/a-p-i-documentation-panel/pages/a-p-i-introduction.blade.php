@@ -23,7 +23,7 @@
                 <span class="variable">$headers</span> = [<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'email: {your-email-address}'</span>,<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'password: {your-password}'</span>,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'api_key: ABCDEFGHIJKLMN35cfd23ded9AG2OEBMN6635cfd23dedaSWEETBILL6635cfd23dedb562d0d6fWI32Me4Nfdee00cc232ed3GLadEdiEd3d2ud24d623geN6rf76L65Ei3T6fEdfdB3cd6S2E66ccb003dLd4WaAE6TccdBGI935c53OBMde32ed256IfA5B3SOLH5nd202405040704'</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'api_key: {your-api-key}'</span><br>
                 ];<br><br>
         
                 <span class="comment">// Set cURL options</span><br>
