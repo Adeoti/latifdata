@@ -236,6 +236,7 @@ curl -X POST http://your-domain.com/api/v1/verify-decoder \
     code {
         font-size: 13px;
         color:red;
+        overflow: auto;
     }
     .error-table th {
         background-color: #ffdddd;
