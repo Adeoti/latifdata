@@ -12,7 +12,7 @@
 
         <div class="p-1">
         
-            <div class="pre">
+            <pre>
                 <span class="comment">// Initialize cURL session</span><br>
                 <span class="variable">$ch</span> = <span class="keyword">curl_init</span>();<br><br>
         
@@ -44,7 +44,7 @@
         
                 <span class="comment">// Close the cURL session</span><br>
                 <span class="keyword">curl_close</span>(<span class="variable">$ch</span>);<br>
-            </div>
+            </pre>
 
         </div>
     </div>
@@ -54,10 +54,10 @@
         @assets
 
         <style>
-            .pre {
+            pre {
                 background-color: #000000;
                 color: #e0e0e0;
-                padding: 10px 90px;
+                padding: 10px;
                 border-radius: 8px;
                 overflow: auto;
                 font-family: 'Courier New', Courier, monospace;
