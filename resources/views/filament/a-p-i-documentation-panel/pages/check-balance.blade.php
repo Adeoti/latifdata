@@ -11,7 +11,7 @@
 
 
 <pre class="p-1" style="background-color: #000000; overflow:auto; color:#ffffff; border-radius:7px; margin-top:7px;">
-    GET &rarr; https://sweetbill.ng/api/v1/balance 
+GET &rarr; https://sweetbill.ng/api/v1/balance 
 </pre>
 
 <br><br>
@@ -41,7 +41,6 @@ The following headers are required for authentication:
      -H "password: user_password" \
      -H "api_key: user_api_key" \
      https://sweetbill.ng/api/v1/balance
-
     </pre>
 
     
@@ -53,11 +52,10 @@ The following headers are required for authentication:
 <p>If the credentials are valid, the endpoint will return a <b>`200 OK`</b> status with the user's balance.</p>
 
 <pre class="p-2" style="background-color:  #000000; overflow:auto; color:#ffffff;">
-    {<br>
-        "balance": 100.00 <br>
+{
+    "balance": 100.00 <br>
 
-    }
-    
+}  
 </pre>
 <br>
 <b>Error</b>
@@ -65,11 +63,10 @@ The following headers are required for authentication:
 <p>If the credentials are invalid or missing, the endpoint will return a <b>`401 Unauthorized`</b> status with an error message.</p>
 
 <pre class="p-2" style="background-color: #000000; overflow:auto; color:#ffffff;">
-    {<br>
-        "error": "Unauthorized" <br>
+{
+    "error": "Unauthorized" 
 
-    }
-    
+} 
 </pre>
 
 
