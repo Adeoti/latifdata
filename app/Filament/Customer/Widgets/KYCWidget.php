@@ -219,7 +219,9 @@ if ($decodedAccountResponse['requestSuccessful']) {
      // Update the user's accounts column with the JSON data
      auth()->user()->update([
         'accounts' => $accountsJson,
-        'has_accounts' => true
+        'has_accounts' => true,
+        'account_reference' => $accountReference,
+        'filled_kyc' => true,
     ]);
 
      $this->dispatch(

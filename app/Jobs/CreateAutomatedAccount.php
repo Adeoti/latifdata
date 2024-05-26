@@ -163,7 +163,8 @@ class CreateAutomatedAccount implements ShouldQueue
          // Update the user's accounts column with the JSON data
          $theUser->update([
             'accounts' => $accountsJson,
-            'has_accounts' => true
+            'has_accounts' => true,
+            'account_reference' => $accountReference
         ]);
     
         //  $this->dispatch(
