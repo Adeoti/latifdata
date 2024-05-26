@@ -114,8 +114,7 @@ curl -X POST https://sweetbill.ng/api/v1/verify-decoder \
 <h5>Response Body</h5>
 <pre><code>
 {
-    "customer_name": "John Doe",
-    "customer_address": "1234 Main St"
+    "customer_name": "John Doe"
 }
 </code></pre>
 
