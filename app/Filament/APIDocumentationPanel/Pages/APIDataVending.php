@@ -10,6 +10,7 @@ class APIDataVending extends Page
 
     
     protected static ?string $navigationLabel = "Data Vending";
+    protected static ?string $title = "Data Vending";
     protected static ?int $navigationSort = 3;
 
     protected static string $view = 'filament.a-p-i-documentation-panel.pages.a-p-i-data-vending';

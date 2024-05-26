@@ -56,7 +56,7 @@ class AutomatedFundingWidget extends BaseWidget
             }else{
                 return [
                     Stat::make('Generate automated accounts','Update KYC')
-                        ->description('Update your KYC Info below to generate your KYC. ')
+                        ->description('Update your KYC Info below to generate your automated account numbers. ')
                         ->extraAttributes([
                             'class' => 'cursor-pointer',
                             'style' => "border-left:6px solid #fe5006;",

@@ -102,9 +102,7 @@ private function generateRandomString($length = 10)
     return $randomString;
 }
 
-public function verifyBVN(){
 
-}
 
 public function createMonnifyAccounts($bvn,$nin){
 

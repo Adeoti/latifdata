@@ -2,7 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Customer\Pages\CustomerDashboard;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
@@ -10,11 +9,13 @@ use Filament\PanelProvider;
 use Filament\Enums\ThemeMode;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
+use App\Filament\Pages\Auth\Register;
+use Filament\Navigation\NavigationItem;
 use Filament\Http\Middleware\Authenticate;
 use App\Filament\Customer\Pages\EditProfile;
-use App\Filament\Pages\Auth\Register;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use App\Filament\Customer\Pages\CustomerDashboard;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -43,6 +44,12 @@ class CustomerPanelProvider extends PanelProvider
             ->topbar(true)
             ->spa()
             ->defaultThemeMode(ThemeMode::Light)
+            ->navigationItems([
+                NavigationItem::make('API Documentations')
+                    ->url('/api-docs', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-signal')
+                    ->sort(30)
+            ])
 
             //->favicon(asset('images/favicon.png'))
             //->brandLogo(asset('images/logo.svg'))

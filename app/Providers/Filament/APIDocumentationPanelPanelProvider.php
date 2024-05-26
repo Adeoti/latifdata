@@ -32,6 +32,8 @@ class APIDocumentationPanelPanelProvider extends PanelProvider
             ->login()
             ->sidebarCollapsibleOnDesktop()
             ->defaultThemeMode(ThemeMode::Light)
+            ->profile(false)
+            ->darkMode(false)
 
             //->favicon(asset('images/favicon.png'))
             //->brandLogo(asset('images/logo.svg'))

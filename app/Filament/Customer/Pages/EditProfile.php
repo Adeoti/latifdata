@@ -139,7 +139,7 @@ public function verifyBVN(){
 
 }
 
-public function createMonnifyAccounts($bvn,$nin,$bvn_date_of_birth){
+public function createMonnifyAccounts($bvn,$nin){
 
    //$this->verifyBVN();
 
@@ -366,20 +366,23 @@ if ($decodedAccountResponse['requestSuccessful']) {
 // }
 
 
+
+
+protected function testSweetBillBalanceEndPoint(){
+
+    $response = Http::withHeaders([
+        'email' => 'adeoti360@gmail.com',
+        'password' => '7DP75syvXML#',
+        'api_key' => '202405040704iuncrHgIai6635cfd23ded9AG2OEBMN6635cfd23dedaSWEETBILL6635cfd23dedb562d0d6fWI32Me4Nfdee00cc232ed3GLadEdiEd3d2ud24d623geN6rf76L65Ei3T6fEdfdB3cd6S2E66ccb003dLd4WaAE6TccdBGI935c53OBMde32ed256IfA5B3SOLH5nd202405040704',
+    ])->get('http://127.0.0.1:8000/api/v1/balance');
+
+        return $response;
+}
+
+
  
 public function update(): void
 {
-
- 
-
-   if(!auth()->user()->has_accounts){
-        $bvn = $this->form->getState()['bvn'];
-        $nin =  $this->form->getState()['nin'];
-        $bvn_date_of_birth =  $this->form->getState()['bvn_date_of_birth'];
-        
-       // $this->createMonnifyAccounts($bvn,$nin,$bvn_date_of_birth);
-   }
-    
 
 
 

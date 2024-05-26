@@ -10,6 +10,7 @@ class APIStarTimeVending extends Page
 
     
     protected static ?string $navigationLabel = "StarTime Vending";
+    protected static ?string $title = "StarTime Vending";
     protected static ?int $navigationSort = 7;
 
     protected static string $view = 'filament.a-p-i-documentation-panel.pages.a-p-i-star-time-vending';

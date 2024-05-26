@@ -10,6 +10,7 @@ class APIGOTVVending extends Page
 
     
     protected static ?string $navigationLabel = "GOTV Vending";
+    protected static ?string $title = "GOTV Vending";
     protected static ?int $navigationSort = 6;
 
     protected static string $view = 'filament.a-p-i-documentation-panel.pages.a-p-i-g-o-t-v-vending';
