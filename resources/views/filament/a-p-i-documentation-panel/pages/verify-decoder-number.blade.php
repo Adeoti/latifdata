@@ -12,6 +12,7 @@
 
 <h3>Headers</h3>
 <p>The following headers are required for authentication and verification:</p>
+<div class="table-container">
 <table>
     <thead>
         <tr>
@@ -48,6 +49,7 @@
         </tr>
     </tbody>
 </table>
+</div>
 
 <h3>Request</h3>
 
@@ -55,6 +57,7 @@
 <p><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></p>
 
 <h4>Headers</h4>
+<div class="table-container">
 <table>
     <thead>
         <tr>
@@ -91,6 +94,7 @@
         </tr>
     </tbody>
 </table>
+</div>
 
 <h4>Example Request</h4>
 <pre><code>
@@ -133,6 +137,8 @@ curl -X POST http://your-domain.com/api/v1/verify-decoder \
 </code></pre>
 
 <h3>Error Codes</h3>
+
+<div class="table-container">
 <table class="error-table">
     <thead>
         <tr>
@@ -159,6 +165,7 @@ curl -X POST http://your-domain.com/api/v1/verify-decoder \
         </tr>
     </tbody>
 </table>
+</div>
 
 <h3>Notes</h3>
 <ul>
@@ -236,6 +243,11 @@ curl -X POST http://your-domain.com/api/v1/verify-decoder \
     .error-table td {
         background-color: #ffecec;
     }
+    .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
 </style>
 
 @endassets
