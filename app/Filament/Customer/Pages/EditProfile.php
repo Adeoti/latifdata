@@ -184,16 +184,16 @@ public function updateMonnifyAccounts($bvn,$nin){
 
         // Define the request payload
         $payload = [
-            "accountReference" => auth()->user()->account_reference,
             "bvn" => $bvn,
             "nin" => $nin,
         ];
         
+        $accountReferencemi = auth()->user()->account_reference;
         // Send the POST request with the token included in the request header
         $accountResponse = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken, 
             'Content-Type' => 'application/json'
-        ])->put($baseUrl.'api/v1/bank-transfer/reserved-accounts/{accountReference}/kyc-info', $payload);
+        ])->put($baseUrl."api/v1/bank-transfer/reserved-accounts/{$accountReferencemi}/kyc-info", $payload);
         
         // Handle the response as needed...
         
