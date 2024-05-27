@@ -5,7 +5,7 @@
 
 
 <h3>Endpoint</h3>
-<p><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></p>
+<pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></pre>
 
 <h3>Description</h3>
 <p>This endpoint allows a registered user to verify a decoder number. The user must provide their email, password, and API key in the request headers. The decoder number and decoder type must also be included in the headers.</p>
@@ -54,7 +54,7 @@
 <h3>Request</h3>
 
 <h4>URL</h4>
-<p><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></p>
+<pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></pre>
 
 <h4>Headers</h4>
 <div class="table-container">
@@ -135,7 +135,7 @@ curl -X POST https://sweetbill.ng/api/v1/verify-decoder \
 }
 </code></pre>
 
-<h3>Error Codes</h3>
+<h3>Response Codes</h3>
 
 <div class="table-container">
 <table class="error-table">
