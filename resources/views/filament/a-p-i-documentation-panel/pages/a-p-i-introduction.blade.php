@@ -7,43 +7,17 @@
     <div style="background-color: #fff; border-radius:8px;" class="p-6">
         To authenticate your request, generate and copy your API Key from the form above. Then include it with your <b>email</b> and <b>password</b> in the request header.
         <br><br>
-        <b>Example (To check balance):</b>
+        <b>Example:</b>
         <br>
 
         <div class="p-1">
         
             <pre>
-                <span class="comment">// Initialize cURL session</span><br>
-                <span class="variable">$ch</span> = <span class="keyword">curl_init</span>();<br><br>
-        
-                <span class="comment">// Set the URL</span><br>
-                <span class="variable">$url</span> = <span class="string">'https://sweetbill.ng/api/v1/balance'</span>;<br><br>
-        
-                <span class="comment">// Set the headers</span><br>
-                <span class="variable">$headers</span> = [<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'email: {your-email-address}'</span>,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'password: {your-password}'</span>,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'api_key: {your-api-key}'</span><br>
-                ];<br><br>
-        
-                <span class="comment">// Set cURL options</span><br>
-                <span class="keyword">curl_setopt</span>(<span class="variable">$ch</span>, <span class="constant">CURLOPT_URL</span>, <span class="variable">$url</span>);<br>
-                <span class="keyword">curl_setopt</span>(<span class="variable">$ch</span>, <span class="constant">CURLOPT_RETURNTRANSFER</span>, <span class="constant">true</span>);<br>
-                <span class="keyword">curl_setopt</span>(<span class="variable">$ch</span>, <span class="constant">CURLOPT_HTTPHEADER</span>, <span class="variable">$headers</span>);<br><br>
-        
-                <span class="comment">// Execute the cURL request</span><br>
-                <span class="variable">$response</span> = <span class="keyword">curl_exec</span>(<span class="variable">$ch</span>);<br><br>
-        
-                <span class="comment">// Check for cURL errors</span><br>
-                <span class="keyword">if</span> (<span class="keyword">curl_errno</span>(<span class="variable">$ch</span>)) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">echo</span> <span class="string">'Error:'</span> . <span class="keyword">curl_error</span>(<span class="variable">$ch</span>);<br>
-                } <span class="keyword">else</span> {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Output the response</span><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">echo</span> <span class="variable">$response</span>;<br>
-                }<br><br>
-        
-                <span class="comment">// Close the cURL session</span><br>
-                <span class="keyword">curl_close</span>(<span class="variable">$ch</span>);<br>
+                {
+                    'email': 'your-email-address',
+                    'password': 'your-password',
+                    'api_key': 'your-API-Key',
+                }
             </pre>
 
         </div>

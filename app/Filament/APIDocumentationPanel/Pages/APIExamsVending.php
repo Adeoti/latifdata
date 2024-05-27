@@ -11,7 +11,9 @@ class APIExamsVending extends Page
     
     protected static ?string $navigationLabel = "Exam Pins Vending";
     protected static ?string $title = "Exam Pins Vending";
+    protected ?string $subheading = "Currently Not Available ...";
     protected static ?int $navigationSort = 8;
+
 
     protected static string $view = 'filament.a-p-i-documentation-panel.pages.a-p-i-exams-vending';
 }

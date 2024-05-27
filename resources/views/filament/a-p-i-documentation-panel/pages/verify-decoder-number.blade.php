@@ -8,7 +8,7 @@
 <pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></pre>
 
 <h3>Description</h3>
-<p>This endpoint allows a registered user to verify a decoder number. The user must provide their email, password, and API key in the request headers. The decoder number and decoder type must also be included in the headers.</p>
+<p>This endpoint allows a registered user to verify a decoder number. The user must provide their email, password, and API key in the request headers. The decoder number and decoder type must also be included in the body of the request.</p>
 
 <h3>Headers</h3>
 <p>The following headers are required for authentication and verification:</p>
@@ -51,12 +51,8 @@
 </table>
 </div>
 
-<h3>Request</h3>
-
-<h4>URL</h4>
-<pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></pre>
-
-<h4>Headers</h4>
+<h3>Body Parameters</h3>
+<p>The following parameters are required for the request:</p>
 <div class="table-container">
 <table>
     <thead>
@@ -67,21 +63,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td><code>email</code></td>
-            <td>string (required)</td>
-            <td>The user's registered email.</td>
-        </tr>
-        <tr>
-            <td><code>password</code></td>
-            <td>string (required)</td>
-            <td>The user's password.</td>
-        </tr>
-        <tr>
-            <td><code>api_key</code></td>
-            <td>string (required)</td>
-            <td>The user's API key.</td>
-        </tr>
+        
         <tr>
             <td><code>decoder_number</code></td>
             <td>string (required)</td>
@@ -96,14 +78,21 @@
 </table>
 </div>
 
+<h3>Request</h3>
+
+<h4>URL</h4>
+<pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/verify-decoder</code></pre>
+
+
+
 <h4>Example Request</h4>
 <pre><code>
 curl -X POST https://sweetbill.ng/api/v1/verify-decoder \
      -H "email: user@example.com" \
      -H "password: user_password" \
      -H "api_key: user_api_key" \
-     -H "decoder_number: 123456789" \
-     -H "decoder_type: dstv"
+     -d "decoder_number: 123456789" \
+     -d "decoder_type: dstv"
 </code></pre>
 
 <h3>Response</h3>

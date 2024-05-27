@@ -4,53 +4,61 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Http;
 use App\Models\PaymentIntegration;
 
-class DecoderVerificationController extends Controller
+
+class MeterVerificationController extends Controller
 {
-    public function verifyDecoder(Request $request)
+    public function verifyMeter(Request $request)
     {
-        // Validate request headers
+
+        // Validate body
         $request->validate([
-            'decoder_number' => 'required|string',
-            'decoder_type' => 'required|string|in:dstv,gotv,startime',
+            'meter_number' => 'required|string',
+            'meter_type' => 'required|string|in:prepaid,postpaid',
+            'service_id' => 'required|string'
         ]);
 
-        $decoder_number = $request->input('decoder_number');
-        $decoder_type = $request->input('decoder_type');
+      
+        // Extract body parameters
+        $meter_number = $request->input('meter_number');
+        $meter_type = $request->input('meter_type');
+        $service_id = $request->input('service_id');
 
-        // Send a verify request to the VTPASS Endpoint...
+        // Send a verify request to the VTPASS Endpoint
         $response = Http::withHeaders([
             'api-key' => PaymentIntegration::first()->vtpass_api_key,
             'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
             'Content-Type' => 'application/json'
         ])->post('https://api-service.vtpass.com/api/merchant-verify', [
-            'billersCode' => $decoder_number,
-            'serviceID' => $decoder_type,
+            'billersCode' => $meter_number,
+            'serviceID' => $service_id,
+            'type' => $meter_type,
         ]);
 
         // Check if the request was successful
-       // return $response;
         if ($response->successful()) {
+            $responseData = $response->json();
             $slicedResponse = json_decode($response->body(), true);
 
             if (array_key_exists('Customer_Name', $slicedResponse['content'])) {
                 $customerName = $slicedResponse['content']['Customer_Name'];
-                
+                $customerAddress = $slicedResponse['content']['Address'];
 
                 return response()->json([
                     'customer_name' => $customerName,
-                    
+                    'customer_address' => $customerAddress
                 ], 200);
             } else {
                 return response()->json([
-                    'error' => 'Invalid Decoder Number. Kindly provide a valid Decoder Number and try again!',
+                    'error' => 'Invalid Meter Number. Kindly provide a valid Meter Number and try again!'
                 ], 400);
             }
         } else {
             return response()->json([
-                'error' => 'Something went wrong. Please try again later or reach out to our reps for help.',
+                'error' => 'Something went wrong. Please try again later or reach out to our reps for help.'
             ], 500);
         }
     }
