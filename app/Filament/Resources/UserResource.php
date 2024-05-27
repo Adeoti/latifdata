@@ -245,6 +245,11 @@ class UserResource extends Resource
                     ->searchable()
                     ->toggleable()
                 ,
+                TextColumn::make('package')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()
+                ,
 
                 TextColumn::make('username')
                     ->sortable()
