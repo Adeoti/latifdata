@@ -37,16 +37,7 @@
             <td>string (required)</td>
             <td>The user's API key.</td>
         </tr>
-        <tr>
-            <td><code>decoder_number</code></td>
-            <td>string (required)</td>
-            <td>The decoder number to verify.</td>
-        </tr>
-        <tr>
-            <td><code>decoder_type</code></td>
-            <td>string (required)</td>
-            <td>Type of decoder: <code>dstv</code>, <code>gotv</code>, <code>startime</code>.</td>
-        </tr>
+     
     </tbody>
 </table>
 </div>
