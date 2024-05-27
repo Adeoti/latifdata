@@ -149,69 +149,7 @@
     </div>
     
     <h3>Request</h3>
-    
-    <h4>URL</h4>
-    <pre><code>POST https://sweetbill.ng/api/v1/verify-meter</code></pre>
-    
-    <h4>Headers</h4>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Value</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>email</code></td>
-                    <td>string (required)</td>
-                    <td>The user's registered email.</td>
-                </tr>
-                <tr>
-                    <td><code>password</code></td>
-                    <td>string (required)</td>
-                    <td>The user's password.</td>
-                </tr>
-                <tr>
-                    <td><code>api_key</code></td>
-                    <td>string (required)</td>
-                    <td>The user's API key.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <h4>Body Parameters</h4>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Value</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>meter_number</code></td>
-                    <td>string (required)</td>
-                    <td>The meter number to verify.</td>
-                </tr>
-                <tr>
-                    <td><code>meter_type</code></td>
-                    <td>string (required)</td>
-                    <td>Type of meter: <code>prepaid</code>, <code>postpaid</code>.</td>
-                </tr>
-                <tr>
-                    <td><code>service_id</code></td>
-                    <td>string (required)</td>
-                    <td>The service ID for the meter verification.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
     
     <h4>Example Request</h4>
     <pre><code>

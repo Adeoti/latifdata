@@ -212,33 +212,50 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    -> sortable()
-                    -> searchable()
-                    -> toggleable()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()
                     
                 ,
                 
                 TextColumn::make('email')
-                    -> sortable()
-                    -> searchable()
+                    ->sortable()
+                    ->searchable()
                     ->copyable()
                     ->copyMessage('Email copied!')
                 ,
 
                 TextColumn::make('phone_number')
-                    -> sortable()
+                    ->sortable()
                     ->copyable()
                     ->copyMessage('Phone number copied')
-                    -> searchable()
+                    ->searchable()
+                    ->toggleable()
+                ,
+                TextColumn::make('balance')
+                    ->sortable()
+                    ->money('NGN')
+                    ->searchable()
+                    ->toggleable()
+                ,
+                TextColumn::make('cashback_balance')
+                    ->sortable()
+                    ->money('NGN')
+                    ->default('00')
+                    ->searchable()
                     ->toggleable()
                 ,
 
-                TextColumn::make('username'),
+                TextColumn::make('username')
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable()
+                ,
 
                 TextColumn::make('position')
-                    -> sortable()
-                    -> searchable()
-                    -> toggleable()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()
                 ,
                 ToggleColumn::make('user_status')
                     ->label('Active Status')
