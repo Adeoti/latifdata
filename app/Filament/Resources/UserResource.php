@@ -248,6 +248,7 @@ class UserResource extends Resource
                 TextColumn::make('package')
                     ->sortable()
                     ->searchable()
+                    ->formatStateUsing(fn (string $state): string => strtoupper($state)) 
                     ->toggleable()
                 ,
 
