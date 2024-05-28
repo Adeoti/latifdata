@@ -88,7 +88,7 @@
   
     
         <h2>Endpoint</h2>
-        <pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/buyAirtime</code></pre>
+        <pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/buy-airtime</code></pre>
     
         <h2>Headers</h2>
         <div class="responsive-table">

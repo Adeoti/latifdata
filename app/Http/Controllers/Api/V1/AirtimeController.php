@@ -81,9 +81,9 @@ class AirtimeController extends Controller
 
 
          // Validate requestId format (YYYYMMDDHHmmss followed by any alphanumeric or underscore)
-         if (!preg_match('/^\d{14}[a-zA-Z0-9_]*$/', $requestId)) {
-            return response()->json(['error' => 'Invalid requestId format'], 400);
-        }
+        //  if (!preg_match('/^\d{14}[a-zA-Z0-9_]*$/', $requestId)) {
+        //     return response()->json(['error' => 'Invalid requestId format'], 400);
+        // }
 
         // Check if user is not banned
         if ($user->user_status != true) {
