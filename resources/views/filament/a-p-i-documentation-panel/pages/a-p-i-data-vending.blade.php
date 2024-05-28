@@ -67,35 +67,7 @@
         th {
             background-color: #f2f2f2;
         }
-        @media (max-width: 600px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-            th {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-            tr {
-                border: 1px solid #ccc;
-                margin-bottom: 5px;
-            }
-            td {
-                border: none;
-                position: relative;
-                padding-left: 50%;
-                text-align: right;
-            }
-            td:before {
-                content: attr(data-label);
-                position: absolute;
-                left: 10px;
-                width: 45%;
-                padding-right: 10px;
-                text-align: left;
-                white-space: nowrap;
-            }
-        }
+       
     </style>
     @endassets
 
