@@ -52,6 +52,7 @@ class RecentActivitiesWidget extends BaseWidget
                         'failed' => 'danger',
                         'pending' => 'warning',
                         'rejected' => 'danger',
+                        'refund' => 'info',
                     })
                 ,
 

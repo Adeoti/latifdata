@@ -136,11 +136,23 @@ class ProcessElectricity implements ShouldQueue
                 //Check the billerCode and get the customer's name.....
 
                 //Send a verify request to the VTPASS Endpoint...
+                // $response = Http::withHeaders([
+                //     'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                //     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
+                //     'Content-Type' => 'application/json'
+                // ])->post('https://api-service.vtpass.com/api/merchant-verify', [
+                //     'billersCode' => $meter_number,
+                //     'serviceID' => $service_id,
+                //     'type' => $meter_type,
+                // ]);
+
+
+                    // Verify meter number
                 $response = Http::withHeaders([
-                    'api-key' => PaymentIntegration::first()->vtpass_api_key,
-                    'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
+                    'api-key' => "f40824cdb526d8d07bd1a4c7f54e2e9d",
+                    'secret-key' => "SK_458a2566c1c70073766c67f20498830d3d868f6d2b4",
                     'Content-Type' => 'application/json'
-                ])->post('https://api-service.vtpass.com/api/merchant-verify', [
+                ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
                     'billersCode' => $meter_number,
                     'serviceID' => $service_id,
                     'type' => $meter_type,
@@ -239,11 +251,18 @@ class ProcessElectricity implements ShouldQueue
 
 
 
+                // $responseCable = Http::withHeaders([
+                //     'api-key' => PaymentIntegration::first()->vtpass_api_key,
+                //     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
+                //     'Content-Type' => 'application/json'
+                // ])->post(trim($endpoint), $payload); switch later
+
+
                 $responseCable = Http::withHeaders([
-                    'api-key' => PaymentIntegration::first()->vtpass_api_key,
-                    'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
+                    'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
+                    'secret-key' => 'SK_458a2566c1c70073766c67f20498830d3d868f6d2b4',
                     'Content-Type' => 'application/json'
-                ])->post(trim($endpoint), $payload);
+                ])->post('https://sandbox.vtpass.com/api/pay', $payload);
 
 
                 $responsePurchase = json_decode($responseCable->body(), true);

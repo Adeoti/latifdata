@@ -122,7 +122,7 @@ class ElectricityController extends Controller
         // Verify meter number
         $verifyResponse = Http::withHeaders([
             'api-key' => "f40824cdb526d8d07bd1a4c7f54e2e9d",
-            'secret-key' => "SK_235d4a93fad76fdb31686ef201a5dc4b517d75f6df5",
+            'secret-key' => "SK_458a2566c1c70073766c67f20498830d3d868f6d2b4",
             'Content-Type' => 'application/json'
         ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
             'billersCode' => $meter_number,
@@ -130,8 +130,6 @@ class ElectricityController extends Controller
             'type' => $meter_type,
         ]);
 
-
-        return $verifyResponse;
 
         if (!$verifyResponse->successful() || !array_key_exists('Customer_Name', $verifyResponse->json()['content'])) {
             return response()->json(['status' => 'failed', 'error' => 'Kindly provide a valid Meter Number and Try again!'], 400);
@@ -182,7 +180,7 @@ class ElectricityController extends Controller
         // Purchase electricity
         $purchaseResponse = Http::withHeaders([
             'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-            'secret-key' => 'SK_235d4a93fad76fdb31686ef201a5dc4b517d75f6df5',
+            'secret-key' => 'SK_458a2566c1c70073766c67f20498830d3d868f6d2b4',
             'Content-Type' => 'application/json'
         ])->post('https://sandbox.vtpass.com/api/pay', [
             'phone' => $phone,
@@ -192,6 +190,8 @@ class ElectricityController extends Controller
             'request_id' => $requestId,
             'amount' => $product_amount,
         ]);
+
+        return $purchaseResponse;
 
         if ($purchaseResponse->successful() && $purchaseResponse->json()['content']['transactions']['status'] === 'delivered') {
             $content = $purchaseResponse->json()['content'];
