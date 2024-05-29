@@ -4,12 +4,15 @@ namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
 
-class CashflowChart extends ChartWidget
+class iiCashflowChart extends ChartWidget
 {
     protected static ?string $heading = 'Cashflow Chart';
     protected int | string | array $columnSpan = 1;
     protected static ?int $sort = 2;
-
+    public static function canView(): bool
+    {
+        return false;
+    }
 
     protected function getData(): array
     {

@@ -68,7 +68,7 @@ class AdminPanelProvider extends PanelProvider
                 // Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
                 StatsOverview::class,
-                CashflowChart::class
+                //CashflowChart::class
 
             ])
             ->middleware([

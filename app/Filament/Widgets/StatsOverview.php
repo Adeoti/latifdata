@@ -108,7 +108,7 @@ class StatsOverview extends BaseWidget
          
             Stat::make(' DataLight Wallet Balance', $this->apiBalance('datalight'))
                 ->chart([7, 2, 10, 3, 15, 4, 17]) 
-                -> color('danger')
+                -> color('primary')
             ,
          
             Stat::make(' VTPass Wallet Balance', SELF::CURRENCY_SIGN.$this->getMyVtPassBalance())
@@ -117,7 +117,7 @@ class StatsOverview extends BaseWidget
             ,
             Stat::make('User\'s Wallet Balance',SELF::CURRENCY_SIGN.number_format($total_users_balance,2))
                 -> description('The sum of all users\' wallet balance')
-                -> descriptionColor('danger')
+                -> descriptionColor('primary')
                 -> descriptionIcon('heroicon-m-user-plus')
             ,
             Stat::make('User\'s Cashback Balance',SELF::CURRENCY_SIGN.number_format($total_users_cashback_balance,2))
@@ -127,12 +127,12 @@ class StatsOverview extends BaseWidget
             ,
             Stat::make('SweetBill Users', User::count()) 
                 -> chart([7, 1, 4, 30, 15, 4, 2])
-                -> color('warning'),
+                -> color('primary'),
 
              Stat::make('Total Staff', User::where('is_staff',true)->count())
                 -> descriptionIcon('heroicon-m-arrow-up')
                 -> chart([7, 1, 4, 30, 15, 4, 2])
-                -> color('warning')
+                -> color('primary')
             ,
 
             // Expenses, Savings, Staff

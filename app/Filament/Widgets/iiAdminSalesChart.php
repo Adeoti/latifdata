@@ -4,11 +4,15 @@ namespace App\Filament\Widgets;
 
 use Filament\Widgets\ChartWidget;
 
-class AdminSalesChart extends ChartWidget
+class iiAdminSalesChart extends ChartWidget
 {
     protected static ?string $heading = 'Sales Flow';
     protected static ?int $sort = 3;
 
+    public static function canView(): bool
+    {
+        return false;
+    }
     protected function getData(): array
     {
         return [
