@@ -52,6 +52,7 @@ class MyDataTransactions extends Page implements HasTable
         TextColumn::make('network')
             ->searchable()
             ->sortable()
+            ->formatStateUsing(fn (string $state): string => strtoupper($state)) 
         ,
         TextColumn::make('plan_name')
             ->searchable()
