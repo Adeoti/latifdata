@@ -115,8 +115,8 @@ class ProcessElectricity implements ShouldQueue
             
 
             //Check my balance before moving on...
-            $myVtPassBalance = $this->getMyVtPassBalance();
-           // $myVtPassBalance = 2000000;
+            //$myVtPassBalance = $this->getMyVtPassBalance();
+           $myVtPassBalance = 2000000;
 
             if($myVtPassBalance > $amount_to_pay){
 

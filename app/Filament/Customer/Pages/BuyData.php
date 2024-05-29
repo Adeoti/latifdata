@@ -863,6 +863,8 @@ class BuyData extends Page implements HasForms
                                 type: 'info'
                     );
 
+                    $this->form->fill();
+
                             // switch($data_vendor){
                             //     case 'twins10':
                             //         $this->buyDataFromTwins10andCo($requestId,$data_id,$amount,$cashback,$phone_number,$validate_phone_number,$data_vendor);
@@ -917,6 +919,8 @@ class BuyData extends Page implements HasForms
                     button: 'Got it!',
                     type: 'info'
         );
+
+         $this->form->fill();
                 // switch($data_vendor){
                 //     case 'twins10':
                 //         $this->buyDataFromTwins10andCo($requestId,$data_id,$amount,$cashback,$phone_number,$validate_phone_number,$data_vendor);
