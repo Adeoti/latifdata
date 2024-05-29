@@ -16,38 +16,34 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
+            font-size: 2em;
+            font-weight: bold;
             color: #333;
         }
         h2 {
-            color: #555;
+            font-size: 1.75em;
+            font-weight: bold;
+            color: #444;
+            margin-top: 39px;
         }
-        h2 {
-        color: #333;
-        font-weight: bold;
-        font-size: 29px;
-        margin:12px 0px;
-    }
-    
-    h3 {
-        color: #333;
-        font-weight: bold;
-        font-size: 24px;
-        margin:9px 0px;
-    }
-    
-    h4 {
-        color: #333;
-        font-weight: bold;
-        font-size: 18px;
-        margin:8px 0px;
-    }
-    
-    h5 {
-        color: #333;
-        font-weight: bold;
-        font-size: 15px;
-        margin:12px 0px;
-    }
+        h3 {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #555;
+            margin: 19px 0px;
+        }
+        h4 {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #666;
+            margin: 19px 0px;
+        }
+        h5 {
+            font-size: 1em;
+            font-weight: bold;
+            color: #777;
+            margin: 19px 0px;
+        }
         pre {
             background: #f4f4f4;
             padding: 15px;
