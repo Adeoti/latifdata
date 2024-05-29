@@ -99,8 +99,8 @@ class ElectricityController extends Controller
     {
         $ngn = "₦";
         $requestId .= "_ELECTRICITY";
-        //$myVtPassBalance = $this->getMyVtPassBalance(); switch_later
-        $myVtPassBalance = 2000000; 
+        $myVtPassBalance = $this->getMyVtPassBalance(); //switch_later
+       // $myVtPassBalance = 2000000; 
 
 
 
@@ -108,27 +108,27 @@ class ElectricityController extends Controller
             return response()->json(['status' => 'failed', 'error' => 'Something went wrong we are working on it quickly. Thanks!'], 400);
         }
 
-        // // Verify meter number
-        // $verifyResponse = Http::withHeaders([
-        //     'api-key' => PaymentIntegration::first()->vtpass_api_key,
-        //     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
-        //     'Content-Type' => 'application/json'
-        // ])->post('https://api-service.vtpass.com/api/merchant-verify', [
-        //     'billersCode' => $meter_number,
-        //     'serviceID' => $disco_type,
-        //     'type' => $meter_type,
-        // ]); switch_later
-
         // Verify meter number
         $verifyResponse = Http::withHeaders([
-            'api-key' => "f40824cdb526d8d07bd1a4c7f54e2e9d",
-            'secret-key' => "SK_458a2566c1c70073766c67f20498830d3d868f6d2b4",
+            'api-key' => PaymentIntegration::first()->vtpass_api_key,
+            'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
             'Content-Type' => 'application/json'
-        ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
+        ])->post('https://api-service.vtpass.com/api/merchant-verify', [
             'billersCode' => $meter_number,
             'serviceID' => $disco_type,
             'type' => $meter_type,
-        ]);
+        ]); //switch_later
+
+        // Verify meter number
+        // $verifyResponse = Http::withHeaders([
+        //     'api-key' => "f40824cdb526d8d07bd1a4c7f54e2e9d",
+        //     'secret-key' => "SK_458a2566c1c70073766c67f20498830d3d868f6d2b4",
+        //     'Content-Type' => 'application/json'
+        // ])->post('https://sandbox.vtpass.com/api/merchant-verify', [
+        //     'billersCode' => $meter_number,
+        //     'serviceID' => $disco_type,
+        //     'type' => $meter_type,
+        // ]);
 
 
         if (!$verifyResponse->successful() || !array_key_exists('Customer_Name', $verifyResponse->json()['content'])) {
@@ -163,35 +163,39 @@ class ElectricityController extends Controller
             'charges' => "$ngn" . number_format($electricity_charges, 2)
         ]);
 
-        // // Purchase electricity
-        // $purchaseResponse = Http::withHeaders([
-        //     'api-key' => PaymentIntegration::first()->vtpass_api_key,
-        //     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
-        //     'Content-Type' => 'application/json'
-        // ])->post('https://api-service.vtpass.com/api/pay', [
-        //     'phone' => $phone,
-        //     'serviceID' => $disco_type,
-        //     'billersCode' => $meter_number,
-        //     'variation_code' => $meter_type,
-        //     'request_id' => $requestId,
-        //     'amount' => $product_amount,
-        // ]); switch_later
-
         // Purchase electricity
         $purchaseResponse = Http::withHeaders([
-            'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
-            'secret-key' => 'SK_458a2566c1c70073766c67f20498830d3d868f6d2b4',
+            'api-key' => PaymentIntegration::first()->vtpass_api_key,
+            'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
             'Content-Type' => 'application/json'
-        ])->post('https://sandbox.vtpass.com/api/pay', [
+        ])->post('https://api-service.vtpass.com/api/pay', [
             'phone' => $phone,
             'serviceID' => $disco_type,
             'billersCode' => $meter_number,
             'variation_code' => $meter_type,
             'request_id' => $requestId,
             'amount' => $product_amount,
-        ]);
+        ]); //switch_later
 
-        return $purchaseResponse;
+        // // Purchase electricity
+        // $purchaseResponse = Http::withHeaders([
+        //     'api-key' => 'f40824cdb526d8d07bd1a4c7f54e2e9d',
+        //     'secret-key' => 'SK_458a2566c1c70073766c67f20498830d3d868f6d2b4',
+        //     'Content-Type' => 'application/json'
+        // ])->post('https://sandbox.vtpass.com/api/pay', [
+        //     'phone' => $phone,
+        //     'serviceID' => $disco_type,
+        //     'billersCode' => $meter_number,
+        //     'variation_code' => $meter_type,
+        //     'request_id' => $requestId,
+        //     'amount' => $product_amount,
+        // ]);
+
+        
+
+        if(!isset($purchaseResponse->json()['content']['transactions']['status'])){
+            return response()->json(['status' => 'failed', 'error' => 'Invalid requestId!'], 400);
+        }
 
         if ($purchaseResponse->successful() && $purchaseResponse->json()['content']['transactions']['status'] === 'delivered') {
             $content = $purchaseResponse->json()['content'];

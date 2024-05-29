@@ -10,7 +10,7 @@ class APIElectricityVending extends Page
 
     
     protected static ?string $navigationLabel = "Electricity Vending";
-    protected static ?string $title = "Electricity Vending";
+    protected static ?string $title = "";
     protected static ?int $navigationSort = 4;
 
     protected static string $view = 'filament.a-p-i-documentation-panel.pages.a-p-i-electricity-vending';

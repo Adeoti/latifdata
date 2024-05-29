@@ -85,7 +85,7 @@
 
 
     <div class="container">
-  
+        <h1>Buy Airtime API Documentation</h1>
     
         <h2>Endpoint</h2>
         <pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/buy-airtime</code></pre>
@@ -93,30 +93,34 @@
         <h2>Headers</h2>
         <div class="responsive-table">
             <table>
-                <tr>
-                    <th>Header</th>
-                    <th>Type</th>
-                    <th>Required</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>email</td>
-                    <td>String</td>
-                    <td>Yes</td>
-                    <td>User's email address</td>
-                </tr>
-                <tr>
-                    <td>password</td>
-                    <td>String</td>
-                    <td>Yes</td>
-                    <td>User's password</td>
-                </tr>
-                <tr>
-                    <td>api_key</td>
-                    <td>String</td>
-                    <td>Yes</td>
-                    <td>API Key for authentication</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Header</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>email</td>
+                        <td>String</td>
+                        <td>Yes</td>
+                        <td>User's email address</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>String</td>
+                        <td>Yes</td>
+                        <td>User's password</td>
+                    </tr>
+                    <tr>
+                        <td>api_key</td>
+                        <td>String</td>
+                        <td>Yes</td>
+                        <td>User's api_key. <a href="a-p-i-introduction" wire:navigate style="color:#fe5006;"> Get it from the Auth section!</a></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     

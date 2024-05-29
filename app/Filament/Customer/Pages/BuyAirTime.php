@@ -638,7 +638,8 @@ public $loadingWheel = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100
                                         button: 'Got it!',
                                         type: 'info'
                             );
-        
+                            
+                            $this->form->fill();
                                 
                                 } else {
         
@@ -688,6 +689,7 @@ public $loadingWheel = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100
                     button: 'Got it!',
                     type: 'info'
         );
+        $this->form->fill();
 
                 // switch($airtime_vendor){
                 //     case 'twins10':

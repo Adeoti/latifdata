@@ -76,7 +76,7 @@
 
 
     <div class="container">
-      
+        <h1>Buy Data API Documentation</h1>
         <h2>Endpoint</h2>
         <pre><strong>URL:</strong> <code>https://sweetbill.ng/api/v1/buy-data</code></pre>
         <p><strong>Method:</strong> POST</p>
