@@ -79,7 +79,7 @@
 @endassets
 
 <div class="container">
-    <h1>Buy Electricity Subscription API Documentation</h1>
+    <h1>Electricity Subscription API Documentation</h1>
 
     <h2>Endpoint</h2>
     <pre><code><b>POST</b> &rarr; https://sweetbill.ng/api/v1/buy-electricity</code></pre>
