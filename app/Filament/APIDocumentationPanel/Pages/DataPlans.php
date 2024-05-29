@@ -23,6 +23,7 @@ class DataPlans extends Page implements HasTable
 
     protected static string $view = 'filament.a-p-i-documentation-panel.pages.data-plans';
     protected static ?int $navigationSort = 30;
+    protected static ?string $navigationGroup = "Assets";
 
 
 

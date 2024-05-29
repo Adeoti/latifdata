@@ -89,6 +89,7 @@ class MyAirtimeTransactions extends Page implements HasTable
                 'failed' => 'danger',
                 'pending' => 'warning',
                 'rejected' => 'danger',
+                'refund' => 'info',
             })
         ,
 
@@ -121,6 +122,7 @@ class MyAirtimeTransactions extends Page implements HasTable
                 'failed' => 'Failed',
                 'pending' => 'Pending',
                 'rejected' => 'Rejected',
+                'refund' => 'Refund',
             ]),
             Filter::make('created_at')
 ->form([

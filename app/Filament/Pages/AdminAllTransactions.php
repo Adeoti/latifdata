@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use Exception;
 use Filament\Forms;
 use App\Models\User;
 use Filament\Tables;
@@ -12,10 +13,14 @@ use Forms\Components\DatePicker;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\Filter;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Model;
+use App\Mail\SweetBillNotificationEmail;
+use Filament\Notifications\Notification;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Enums\ActionsPosition;
@@ -67,27 +72,48 @@ public function table(Table $table): Table
                     ->label('Reference')
                     ->searchable()
                     ->copyable()
-                    ->copyMessage('Copied')
+                    ->copyMessage('Reference Number Copied')
                     ->toggleable()
                     ,
-                TextColumn::make('note')
-                    ->markdown()
-                    ->toggleable(),
+                
                 TextColumn::make('user.email')
                     ->searchable()
+                    ->toggleable()
                     ->copyable()
-                    ->copyMessage('Copied')
+                    ->copyMessage('Email Copied')
                     ->sortable()
                 ,
-                TextColumn::make('amount'),
-                TextColumn::make('old_balance'),
-                TextColumn::make('new_balance'),
-                TextColumn::make('cashback'),
-                TextColumn::make('amount_paid'),
+                
+                TextColumn::make('note')
+                    ->markdown()
+                    ->toggleable()
+                    ->toggleable(),
+
+                TextColumn::make('amount')
+                ->toggleable()
+                
+                ,
+                TextColumn::make('old_balance')
+                ->toggleable()
+                
+                ,
+                TextColumn::make('new_balance')
+                ->toggleable()
+                
+                ,
+                TextColumn::make('cashback')
+                ->toggleable()
+                
+                ,
+                TextColumn::make('amount_paid')
+                ->toggleable()
+                
+                ,
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->label('Dated')
                     ->date("F d, Y h:i:s A")
+                    ->toggleable()
                     ->sortable(),
                 
                 TextColumn::make('status')
@@ -100,6 +126,7 @@ public function table(Table $table): Table
                         'failed' => 'danger',
                         'pending' => 'warning',
                         'rejected' => 'danger',
+                        'refund' => 'info',
                     })
                 ,
 
@@ -158,12 +185,14 @@ public function table(Table $table): Table
                     $record_cashback = (float) $record_cashback;
 
 
-                    $new_user_balance = $new_cashback_balance = 0;
+                    $new_user_balance = $new_cashback_balance = $amount_refunded = 0;
 
                     if($record_amount_paid > 0){
                         $new_user_balance = (double)$user_balance + (double)$record_amount_paid;
+                        $amount_refunded = $record_amount_paid;
                     }else{
                         $new_user_balance = (double)$user_balance + (double)$record_amount;
+                        $amount_refunded = $record_amount;
                     }
                     
                    
@@ -195,9 +224,42 @@ public function table(Table $table): Table
                         'status' => 'failed'
                     ]);
 
+                
+                
 
 
+                //Send DB Notification and Email to the User....
+                $recipient = User::find($record_user);
+                    
+                $notification_message = "Refund of {$ngn}".number_format($amount_refunded,2)." has been credited to your wallet on ".date("l jS \of F Y h:i:s A").".";
+                $notification_title = "REFUND of {$ngn}".number_format($amount_refunded,2);
+                
+                Notification::make()
+                ->title($notification_title)
+                ->body($notification_message)
+                ->icon('heroicon-c-receipt-refund')
+                ->iconColor('info')
+                ->sendToDatabase($recipient);
+                
+                
 
+                $this->sendEmail($recipient->email,$notification_title,$notification_message,$recipient->name);
+
+
+                Transaction::create([
+                    'type' => $record->type,
+                    'user_id' => $record->user_id,
+                    'api_response' => $notification_message,
+                    'status' => 'refund',
+                    'note' => $notification_message,
+                    'phone_number' => $record->phone_number,
+                    'amount' => "$ngn".number_format($amount_refunded,2),
+                    'old_balance' => "$ngn".$record_old_balance,
+                    'new_balance' => "$ngn".$record_old_balance,
+                    'cashback' => "$ngn".number_format(0,2),
+                    'reference_number' => $record->reference_number,
+                    'network' => $record->network,
+                ]);
 
 
 
@@ -206,7 +268,7 @@ public function table(Table $table): Table
 
 
                     $this->dispatch('alert',
-                        title:'Refunded',
+                        title:$notification_title,
                         type:'success',
                         text:"You've successfully refunded this transaction!",
                         button:'Great!'
@@ -223,6 +285,7 @@ public function table(Table $table): Table
                     'failed' => 'Failed',
                     'processing' => 'Processing',
                     'rejected' => 'Rejected',
+                    'refund' => 'Refund',
                 ]),
                 Filter::make('created_at')
     ->form([
@@ -248,5 +311,16 @@ public function table(Table $table): Table
 
 
 
+  private function sendEmail($toEmail,$subject,$email_message,$emailRecipient){    
 
+        try {
+            $response = Mail::to($toEmail)->send(new SweetBillNotificationEmail($subject,$email_message,$emailRecipient));
+            
+        } catch (Exception $e) {
+           
+            Log::error('Unable to send email '. $e->getMessage() );
+        }
+    
+    }
+    
 }

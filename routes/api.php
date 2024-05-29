@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\DataController;
 use App\Http\Controllers\Api\V1\UserBalanceController;
 use App\Http\Controllers\Api\V1\MeterVerificationController;
 use App\Http\Controllers\Api\V1\DecoderVerificationController;
+use App\Http\Controllers\Api\V1\ElectricityController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -22,5 +23,6 @@ Route::prefix('v1')->group(function () {
     Route::post('verify-meter', [MeterVerificationController::class, 'verifyMeter'])->middleware(AuthenticateWithApiToken::class);
     Route::post('buy-airtime', [AirtimeController::class, 'buyAirtime'])->middleware(AuthenticateWithApiToken::class);
     Route::post('buy-data', [DataController::class, 'buyData'])->middleware(AuthenticateWithApiToken::class);
+    Route::post('buy-electricity', [ElectricityController::class, 'buyElectricity'])->middleware(AuthenticateWithApiToken::class);
 
 });

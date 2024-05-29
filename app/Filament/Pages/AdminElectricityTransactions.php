@@ -108,6 +108,7 @@ class AdminElectricityTransactions extends Page implements HasTable
                 'failed' => 'danger',
                 'pending' => 'warning',
                 'rejected' => 'danger',
+                'refund' => 'info',
             })
         ,
 
@@ -120,6 +121,7 @@ class AdminElectricityTransactions extends Page implements HasTable
                 'failed' => 'Failed',
                 'processing' => 'Processing',
                 'rejected' => 'Rejected',
+                'refund' => 'Refund',
             ]),
             Filter::make('created_at')
 ->form([
