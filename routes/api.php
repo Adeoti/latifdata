@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthenticateWithApiToken;
 use App\Http\Controllers\Api\V1\AirtimeController;
+use App\Http\Controllers\Api\V1\CableController;
 use App\Http\Controllers\Api\V1\DataController;
 use App\Http\Controllers\Api\V1\UserBalanceController;
 use App\Http\Controllers\Api\V1\MeterVerificationController;
@@ -24,5 +25,6 @@ Route::prefix('v1')->group(function () {
     Route::post('buy-airtime', [AirtimeController::class, 'buyAirtime'])->middleware(AuthenticateWithApiToken::class);
     Route::post('buy-data', [DataController::class, 'buyData'])->middleware(AuthenticateWithApiToken::class);
     Route::post('buy-electricity', [ElectricityController::class, 'buyElectricity'])->middleware(AuthenticateWithApiToken::class);
+    Route::post('buy-cable', [CableController::class, 'buyCable'])->middleware(AuthenticateWithApiToken::class);
 
 });
