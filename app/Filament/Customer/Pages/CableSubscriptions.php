@@ -157,7 +157,7 @@ class CableSubscriptions extends Page
                                         ->action(function (Set $set, $state, Callable $get) {
                                             
                                             //Send a verify request to the VTPASS Endpoint...
-                                            $response = Http::withHeaders([
+                                            $response = Http::retry(5, 200)->timeout(60)->withHeaders([
                                                 'api-key' => PaymentIntegration::first()->vtpass_api_key,
                                                 'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                                                 'Content-Type' => 'application/json'
@@ -566,7 +566,7 @@ public function purchase(): void
                 //Check the billerCode and get the customer's name.....
 
                 //Send a verify request to the VTPASS Endpoint...
-                $response = Http::withHeaders([
+                $response = Http::retry(5, 200)->timeout(60)->withHeaders([
                     'api-key' => PaymentIntegration::first()->vtpass_api_key,
                     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'
@@ -676,7 +676,7 @@ public function purchase(): void
 
 
 
-                $responseCable = Http::withHeaders([
+                $responseCable = Http::retry(5, 200)->timeout(60)->withHeaders([
                     'api-key' => PaymentIntegration::first()->vtpass_api_key,
                     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'

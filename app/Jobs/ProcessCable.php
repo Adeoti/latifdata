@@ -70,7 +70,7 @@ class ProcessCable implements ShouldQueue
     public function getMyVtPassBalance(){
         $balance_mi = 0;
 
-        $response = Http::withHeaders([
+        $response = Http::retry(5, 200)->timeout(60)->withHeaders([
             'api-key' => PaymentIntegration::first()->vtpass_api_key,
             'public-key' => PaymentIntegration::first()->vtpass_public_key,
             'Content-Type' => 'application/json',
@@ -135,7 +135,7 @@ class ProcessCable implements ShouldQueue
                 //Check the billerCode and get the customer's name.....
 
                 //Send a verify request to the VTPASS Endpoint...
-                $response = Http::withHeaders([
+                $response = Http::retry(5, 200)->timeout(60)->withHeaders([
                     'api-key' => PaymentIntegration::first()->vtpass_api_key,
                     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'
@@ -248,7 +248,7 @@ class ProcessCable implements ShouldQueue
 
 
 
-                $responseCable = Http::withHeaders([
+                $responseCable = Http::retry(5, 200)->timeout(60)->withHeaders([
                     'api-key' => PaymentIntegration::first()->vtpass_api_key,
                     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'

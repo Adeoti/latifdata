@@ -14,4 +14,5 @@ class APIGOTVVending extends Page
     protected static ?int $navigationSort = 6;
 
     protected static string $view = 'filament.a-p-i-documentation-panel.pages.a-p-i-g-o-t-v-vending';
+    protected static bool $shouldRegisterNavigation = false;
 }

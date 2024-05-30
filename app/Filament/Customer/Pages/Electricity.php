@@ -131,7 +131,7 @@ class Electricity extends Page
                                         ->action(function (Set $set, $state, Callable $get) {
                                             
                                             //Send a verify request to the VTPASS Endpoint...
-                                            $response = Http::withHeaders([
+                                            $response = Http::retry(5, 200)->timeout(60)->withHeaders([
                                                 'api-key' => PaymentIntegration::first()->vtpass_api_key,
                                                 'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                                                 'Content-Type' => 'application/json'
@@ -507,7 +507,7 @@ public function purchase(): void
     public function getMyVtPassBalance(){
         $balance_mi = 0;
 
-        $response = Http::withHeaders([
+        $response = Http::retry(5, 200)->timeout(60)->withHeaders([
             'api-key' => PaymentIntegration::first()->vtpass_api_key,
             'public-key' => PaymentIntegration::first()->vtpass_public_key,
             'Content-Type' => 'application/json',

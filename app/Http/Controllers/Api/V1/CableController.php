@@ -106,7 +106,8 @@ class CableController extends Controller
 
         $requestId .= "_CABLE";
         $user = User::find($userId);
-        $myVtPassBalance = 2000000; // Static balance for demonstration
+        //$myVtPassBalance = 2000000; // Static balance for demonstration
+        $myVtPassBalance = $this->getMyVtPassBalance(); 
 
         if ($myVtPassBalance > $amount_to_pay) {
             $old_balance = $user->balance;
@@ -119,7 +120,7 @@ class CableController extends Controller
             $requestAmount = 0;
 
             // Send a verify request to the VTPASS Endpoint...
-            $response = Http::withHeaders([
+            $response = Http::retry(5, 200)->timeout(60)->withHeaders([
                 'api-key' => PaymentIntegration::first()->vtpass_api_key,
                 'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                 'Content-Type' => 'application/json'
@@ -130,7 +131,7 @@ class CableController extends Controller
 
             // Check if the request was successful
 
-            return $response;
+            
             if ($response->successful()) {
                 $slicedResponce = json_decode($response->body(), true);
 
@@ -177,7 +178,7 @@ class CableController extends Controller
                     $payload['amount'] = $requestAmount;
                 }
 
-                $responseCable = Http::withHeaders([
+                $responseCable = Http::retry(5, 200)->timeout(60)->withHeaders([
                     'api-key' => PaymentIntegration::first()->vtpass_api_key,
                     'secret-key' => PaymentIntegration::first()->vtpass_secret_key,
                     'Content-Type' => 'application/json'
