@@ -75,6 +75,12 @@ class CablePlans extends Page implements HasTable
                 ->toggleable()
                 ->sortable()
                 ,
+            TextColumn::make('service_id')
+                ->formatStateUsing(fn (string $state): string => strtoupper($state)) 
+                ->searchable()
+                ->toggleable()
+                ->sortable()
+                ,
             
             TextColumn::make('price')
                 ->searchable()
