@@ -129,6 +129,8 @@ class CableController extends Controller
             ]);
 
             // Check if the request was successful
+
+            return $response;
             if ($response->successful()) {
                 $slicedResponce = json_decode($response->body(), true);
 
