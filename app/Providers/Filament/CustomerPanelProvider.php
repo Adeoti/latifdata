@@ -16,6 +16,7 @@ use App\Filament\Customer\Pages\EditProfile;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use App\Filament\Customer\Pages\CustomerDashboard;
+use App\Filament\Customer\Widgets\CustomMobileHomeScreen;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -81,6 +82,7 @@ class CustomerPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Customer/Widgets'), for: 'App\\Filament\\Customer\\Widgets')
             ->widgets([
+                
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])

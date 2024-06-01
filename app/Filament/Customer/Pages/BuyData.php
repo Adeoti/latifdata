@@ -691,6 +691,8 @@ class BuyData extends Page implements HasForms
         $transaction_pin = $this->form->getState()['transaction_pin'];
         $validate_phone_number = $this->form->getState()['validate_phone_number'];
 
+        $phone_number = str_replace(' ', '', $phone_number);
+
         $beneficiary = "";
         
         

@@ -1,11 +1,5 @@
-<x-filament-panels::page>
-    
-
-
 @php
     $user = filament()->auth()->user();
-    $user_balance = number_format($user->balance,2);
-    $cashback_amount = number_format($user->cashback_balance,2);
 
     function getFirstWord($string)
     {
@@ -16,11 +10,11 @@
     }
 @endphp
 
+<x-filament-widgets::widget>
+    {{-- Widget content --}}
     @assets
     <style>
-
-
-        main.custom {
+        main {
             text-align: center;
         }
 
@@ -231,7 +225,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @endassets
 
-    <main class="custom">
+    <main>
         <div class="welcome-text">
             <span class="first">Hello, {{ filament()->getUserName($user) }} 👋</span>
             <span class="package">You're on the <b>{{ strtoupper(filament()->auth()->user()->package) }}</b> package</span>
@@ -239,27 +233,13 @@
 
         <div class="card">
             <div class="left-column">
-                <div class="wallet-balance" id="walletBalance">
-                    @if($balanceToggle)
-                        *****
-                    @else
-                        ₦{{ $user_balance }}
-                    @endif
-                </div>
+                <div class="wallet-balance" id="walletBalance">₦{{ $user_balance }}</div>
                 <div class="cashback-commission">
-                    <span>Cashback: 
-                        <span id="cashbackBalance">
-                            @if($balanceToggle)
-                              *****  
-                            @else
-                                ₦{{ $cashback_amount }}
-                            @endif
-                        </span>
-                    </span>
+                    <span>Cashback: ₦{{ $cashback_amount }}</span>
                 </div>
                 <div class="toggle-container">
                     <label class="toggle-switch">
-                        <input type="checkbox" id="balanceToggle" wire:change="toggleBalance" @if($balanceToggle) checked @endif>
+                        <input type="checkbox" id="balanceToggle">
                         <span class="toggle-slider"></span>
                     </label>
                     <label for="balanceToggle">Toggle Balance</label>
@@ -270,7 +250,6 @@
                 <a href="app/fund-wallet" wire:navigate class="fund-wallet-btn">Fund Wallet</a>
             </div>
         </div>
-        
 
         <div class="announcement-pane">
             @if ($announcement_status === true)
@@ -330,7 +309,7 @@
                     <center><x-heroicon-s-banknotes class="h-6 w-6" style="color:#FE5007;" /></center>
                     <p>Withdraw</p>
                 </a>
-                <a href="app/my-beneficiaries" wire:navigate class="service-item">
+                <a href="app/cashback-withdrawal-page" wire:navigate class="service-item">
                     <center><x-heroicon-s-cog-6-tooth class="h-6 w-6" style="color:#0f9a70;" /></center>
                     <p>Beneficiaries</p>
                 </a>
@@ -341,28 +320,26 @@
             </div>
         </div>
     </main>
-    
+
 <div>
     @script
     <script>
-    
+        function initializeScript() {
+            console.log("Initializing script");
 
             const balanceToggle = document.getElementById('balanceToggle');
             const walletBalance = document.getElementById('walletBalance');
-            const cashbackBalance = document.getElementById('cashbackBalance');
             const userBalance = @json($user_balance);
-            const userCashback = @json($cashback_amount);
 
+            console.log(balanceToggle);
+            console.log(walletBalance);
 
             if (balanceToggle && walletBalance) {
                 balanceToggle.addEventListener('change', () => {
                     if (balanceToggle.checked) {
                         walletBalance.textContent = "*****";
-                        cashbackBalance.textContent = "*****";
-                        
                     } else {
                         walletBalance.textContent = `₦${userBalance}`;
-                        cashbackBalance.textContent = `₦${userCashback}`;
                     }
                 });
             }
@@ -377,9 +354,24 @@
                     confirmButtonText: 'Got it!'
                 });
             }
-        
-        
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Hello');
+            initializeScript();
+
+            document.addEventListener('livewire:load', function () {
+                initializeScript();
+            });
+
+            document.addEventListener('livewire:update', function () {
+                initializeScript();
+            });
+        });
+
+        document.body.style.backgroundColor = "red";
     </script>
     @endscript
 </div>
-</x-filament-panels::page>
+
+</x-filament-widgets::widget>

@@ -390,6 +390,8 @@ public function purchase(): void
     $cable_plan = $this->form->getState()['cablePlan'];
     $transaction_pin = $this->form->getState()['transaction_pin'];
 
+    $phone_number = str_replace(' ', '', $phone_number);
+
     $decoder_number = $this->form->getState()['decoder_number'];
 
     $subscription_type = "";

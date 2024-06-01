@@ -128,6 +128,7 @@ class User extends Authenticatable implements FilamentUser
     'accounts',
     'account_reference',
     'filled_kyc',
+    'balance_toggle',
     ];
 
     /**
@@ -152,6 +153,7 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'add_user' => 'boolean',
+        'balance_toggle' => 'boolean',
         'filled_kyc' => 'boolean',
         'edit_user' => 'boolean',
         'view_user' => 'boolean',

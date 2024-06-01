@@ -410,6 +410,7 @@ public $loadingWheel = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100
         $validate_phone_number = $this->form->getState()['validate_phone_number'];
 
         $beneficiary = "";
+        $phone_number = str_replace(' ', '', $phone_number);
         
         
         if (array_key_exists('beneficiary_name', $this->form->getState())){

@@ -359,6 +359,8 @@ public function purchase(): void
     $meter_type = $this->form->getState()['meter_type'];
     $transaction_pin = $this->form->getState()['transaction_pin'];
 
+    $phone_number = str_replace(' ', '', $phone_number);
+    
     $meter_number = $this->form->getState()['meter_number'];
 
     $product_amount = $this->form->getState()['amount'];
