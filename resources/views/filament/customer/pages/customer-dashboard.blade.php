@@ -232,6 +232,7 @@
 
         .cashback-commission {
             margin-top: 1px;
+            margin-bottom: 7px;
             font-size: 0.9em;
             text-align: center;
             color: white;
