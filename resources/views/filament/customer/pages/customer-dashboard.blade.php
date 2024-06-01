@@ -19,6 +19,15 @@
     @assets
     <style>
 
+        @media (max-width: 767px) {
+           .transaction-history, .balanceToggle{
+            font-size: 0.7em !important;
+           }
+        }
+
+
+
+
 
         main.custom {
             text-align: center;
@@ -262,7 +271,7 @@
                         <input type="checkbox" id="balanceToggle" wire:change="toggleBalance" @if($balanceToggle) checked @endif>
                         <span class="toggle-slider"></span>
                     </label>
-                    <label for="balanceToggle">Toggle Balance</label>
+                    <label for="balanceToggle" class="balanceToggle">Toggle Balance</label>
                 </div>
             </div>
             <div class="right-column">
