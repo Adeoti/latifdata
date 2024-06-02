@@ -111,6 +111,7 @@ class CustomerDashboard extends Page implements HasTable
     public function table(Table $table): Table
     {
         return $table
+            ->heading('Recent Activities')
             ->query(
                 // ...
                 Transaction::where('user_id', auth()->id())->orderBy('id', 'desc')->limit(8)
