@@ -350,6 +350,10 @@
                 </a>
             </div>
         </div>
+
+
+
+        {{$this->table}}
     </main>
     
 <div>
