@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->boolean('balance_toggle');
+            $table->boolean('balance_toggle')->default(false);
         });
     }
 
