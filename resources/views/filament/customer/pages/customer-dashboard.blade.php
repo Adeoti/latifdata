@@ -247,7 +247,7 @@
             <span class="package">You're on the <b>{{ strtoupper(filament()->auth()->user()->package) }}</b> package</span>
         </div>
 
-        <div class="card">
+        <div class="card" wire:poll.5000ms>
             <div class="left-column">
                 <div class="wallet-balance" id="walletBalance">
                     @if($balanceToggle)

@@ -257,6 +257,13 @@ class UserResource extends Resource
                     ->toggleable()
                     ->searchable()
                 ,
+                TextColumn::make('transaction_pin')
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable()
+                    ->copyable()
+                    ->copyMessage('Copied')
+                ,
 
                 TextColumn::make('position')
                     ->sortable()
