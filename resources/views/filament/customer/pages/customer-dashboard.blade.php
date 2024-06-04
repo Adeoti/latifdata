@@ -21,7 +21,7 @@
 
         @media (max-width: 767px) {
            .transaction-history, .balanceToggle{
-            font-size: 0.7em !important;
+            font-size: 0.6em !important;
            }
         }
 
@@ -140,7 +140,7 @@
         .transaction-history {
             color: white;
             text-decoration: none;
-            font-size: 0.6em;
+            font-size: 0.8em;
             margin-bottom: 10px;
         }
 
