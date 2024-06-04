@@ -140,7 +140,7 @@
         .transaction-history {
             color: white;
             text-decoration: none;
-            font-size: 0.7em;
+            font-size: 0.6em;
             margin-bottom: 10px;
         }
 
