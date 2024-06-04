@@ -68,7 +68,14 @@ public function table(Table $table): Table
             ->paginated(true)
             ->columns([
                 //
-                TextColumn::make('reference_number')
+               TextColumn::make('user.email')
+                    ->searchable()
+                    ->toggleable()
+                    ->copyable()
+                    ->copyMessage('Email Copied')
+                    ->sortable()
+                ,
+             TextColumn::make('reference_number')
                     ->label('Reference')
                     ->searchable()
                     ->copyable()
@@ -76,13 +83,7 @@ public function table(Table $table): Table
                     ->toggleable()
                     ,
                 
-                TextColumn::make('user.email')
-                    ->searchable()
-                    ->toggleable()
-                    ->copyable()
-                    ->copyMessage('Email Copied')
-                    ->sortable()
-                ,
+                
                 
                 TextColumn::make('note')
                     ->markdown()

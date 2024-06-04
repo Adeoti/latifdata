@@ -42,6 +42,13 @@ class AdminElectricityTransactions extends Page implements HasTable
     )
     ->columns([
         //
+        TextColumn::make('user.email')
+                    ->searchable()
+                    ->toggleable()
+                    ->copyable()
+                    ->copyMessage('Email Copied')
+                    ->sortable()
+                ,
         TextColumn::make('reference_number')
             ->label('Reference')
             ->searchable()

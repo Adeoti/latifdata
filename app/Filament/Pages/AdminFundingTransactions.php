@@ -42,23 +42,26 @@ class AdminFundingTransactions extends Page implements HasTable
     )
     ->columns([
         //
-        TextColumn::make('reference_number')
-            ->label('Reference')
-            ->searchable()
-            ->toggleable()
-            ->copyable()
-            ->copyMessage('Copied')
-            ,
-        TextColumn::make('note')
-            ->markdown()
-            ->toggleable(),
-        TextColumn::make('user.email')
+       TextColumn::make('user.email')
             ->sortable()
             ->searchable()
             ->toggleable()
             ->copyable()
             ->copyMessage('Copied')
         ,
+
+       TextColumn::make('reference_number')
+            ->label('Reference')
+            ->searchable()
+            ->toggleable()
+            ->copyable()
+            ->copyMessage('Copied')
+            ,
+            
+        TextColumn::make('note')
+            ->markdown()
+            ->toggleable(),
+        
         TextColumn::make('amount')
             ->searchable()
             ,

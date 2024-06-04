@@ -42,7 +42,14 @@ class AdminCashbackTransactions extends Page implements HasTable
     )
     ->columns([
         //
-        TextColumn::make('reference_number')
+      TextColumn::make('user.email')
+            ->sortable()
+            ->copyable()
+            ->copyMessage('Copied')
+            ->searchable()
+            ->toggleable()
+        ,
+      TextColumn::make('reference_number')
             ->label('Reference')
             ->searchable()
             ->toggleable()
@@ -60,13 +67,7 @@ class AdminCashbackTransactions extends Page implements HasTable
             ->searchable()
             ->sortable()
             ->label('Plan'),
-        TextColumn::make('user.email')
-            ->sortable()
-            ->copyable()
-            ->copyMessage('Copied')
-            ->searchable()
-            ->toggleable()
-        ,
+        
         TextColumn::make('amount')
             ->searchable()
             ,

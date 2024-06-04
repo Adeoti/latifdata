@@ -43,6 +43,14 @@ class AdminAirTimeTransactions extends Page implements HasTable
     )
     ->columns([
         //
+       TextColumn::make('user.email')
+            ->sortable()
+            ->copyable()
+            ->copyMessage('Copied')
+            ->searchable()
+            ->toggleable()
+        ,
+      
         TextColumn::make('reference_number')
             ->label('Reference')
             ->searchable()
@@ -50,25 +58,22 @@ class AdminAirTimeTransactions extends Page implements HasTable
             ->copyable()
             ->copyMessage('Copied')
             ,
+
         TextColumn::make('note')
             ->markdown()
             ->toggleable(),
+
         TextColumn::make('network')
             ->searchable()
             ->sortable()
             ->formatStateUsing(fn (string $state): string => strtoupper($state)) 
         ,
+        
         TextColumn::make('plan_name')
             ->searchable()
             ->sortable()
             ->label('Plan'),
-        TextColumn::make('user.email')
-            ->sortable()
-            ->copyable()
-            ->copyMessage('Copied')
-            ->searchable()
-            ->toggleable()
-        ,
+        
         TextColumn::make('phone_number')
             ->label('Phone Number')
             ->searchable()

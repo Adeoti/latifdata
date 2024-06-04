@@ -44,6 +44,14 @@ class AdminCableTransactions extends Page implements HasTable
     )
     ->columns([
         //
+        TextColumn::make('user.email')
+            ->sortable()
+            ->searchable()
+            ->copyable()
+            ->copyMessage('Copied')
+            ->toggleable()
+        ,
+        
         TextColumn::make('reference_number')
             ->label('Reference')
             ->searchable()
@@ -55,13 +63,7 @@ class AdminCableTransactions extends Page implements HasTable
         TextColumn::make('note')
             ->markdown()
             ->toggleable(),
-        TextColumn::make('user.email')
-            ->sortable()
-            ->searchable()
-            ->copyable()
-            ->copyMessage('Copied')
-            ->toggleable()
-        ,
+        
         TextColumn::make('plan_name')
             ->searchable()
             ->label('Cable Name')

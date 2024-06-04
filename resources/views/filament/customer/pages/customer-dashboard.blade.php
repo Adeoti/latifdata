@@ -276,7 +276,7 @@
                 </div>
             </div>
             <div class="right-column">
-                <a href="app/customer-transactions" wire:navigate class="transaction-history">Transaction History</a>
+                <a href="app/customer-transactions" wire:navigate class="transaction-history">Transaction History &rarr;</a>
                 <a href="app/fund-wallet" wire:navigate class="fund-wallet-btn">Fund Wallet</a>
             </div>
         </div>

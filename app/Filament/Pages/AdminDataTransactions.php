@@ -44,6 +44,14 @@ class AdminDataTransactions extends Page implements HasTable
     )
     ->columns([
         //
+         TextColumn::make('user.email')
+            ->sortable()
+            ->searchable()
+            ->copyable()
+            ->copyMessage('Copied')
+            ->toggleable()
+        ,
+        
         TextColumn::make('reference_number')
             ->label('Reference')
             ->searchable()
@@ -63,13 +71,7 @@ class AdminDataTransactions extends Page implements HasTable
             ->searchable()
             ->sortable()
             ->label('Plan'),
-        TextColumn::make('user.email')
-            ->sortable()
-            ->searchable()
-            ->copyable()
-            ->copyMessage('Copied')
-            ->toggleable()
-        ,
+       
         TextColumn::make('phone_number')
             ->label('Phone Number')
             ->searchable()
