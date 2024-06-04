@@ -20,8 +20,12 @@
     <style>
 
         @media (max-width: 767px) {
-           .transaction-history, .balanceToggle{
+           .transaction-history{
             font-size: 0.6em !important;
+           }
+
+           .balanceToggle{
+            font-size: 0.7em !important;
            }
         }
 
