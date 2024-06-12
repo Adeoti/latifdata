@@ -97,8 +97,8 @@ class CustomerDashboard extends Page implements HasTable
     {
         return [
             
-            //AccountWidget::class,
-            //FilamentInfoWidget::class,
+            AccountWidget::class,
+            FilamentInfoWidget::class,
             CustomerStats::class,
            RecentActivitiesWidget::class,
           ServicesLinksWidget::class,
