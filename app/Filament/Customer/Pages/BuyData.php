@@ -855,7 +855,7 @@ class BuyData extends Page implements HasForms
 
 
                             $userId = auth()->id();
-                            ProcessDataPurchase::dispatch($userId,$requestId,$data_id,$amount,$cashback,$phone_number,$validate_phone_number,$data_vendor);
+                            ProcessDataPurchase::dispatch($userId,$requestId,$data_id,$amount,$cashback,$phone_number,$validate_phone_number);
 
                             $this->dispatch(
                                 'alert', 
@@ -912,7 +912,7 @@ class BuyData extends Page implements HasForms
 
 
                 $userId = auth()->id();
-                ProcessDataPurchase::dispatch($userId,$requestId,$data_id,$amount,$cashback,$phone_number,$validate_phone_number,$data_vendor);
+                ProcessDataPurchase::dispatch($userId,$requestId,$data_id,$amount,$cashback,$phone_number,$validate_phone_number);
 
                 $this->dispatch(
                     'alert', 

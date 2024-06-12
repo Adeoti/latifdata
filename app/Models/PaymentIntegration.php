@@ -16,6 +16,10 @@ class PaymentIntegration extends Model
         'monnify_bvn',
         'automated_charges',
 
+        'sweetbill_api_key',
+        'sweetbill_email',
+        'sweetbill_password',
+
         'monnify_base_url',
         'vtpass_api_key',
         'vtpass_public_key',

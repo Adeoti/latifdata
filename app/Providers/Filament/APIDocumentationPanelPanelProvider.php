@@ -41,7 +41,7 @@ class APIDocumentationPanelPanelProvider extends PanelProvider
             //->brandLogoHeight('2rem')
             
             ->colors([
-                'primary' => "#fe5006",
+                'primary' => "#7534e5",
                 'danger' => Color::Rose,
                 'gray' => '#000000', //Color::Gray,
                 'info' => Color::Blue,

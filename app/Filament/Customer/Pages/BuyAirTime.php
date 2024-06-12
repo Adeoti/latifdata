@@ -617,7 +617,7 @@ public $loadingWheel = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100
                                     //Dispatch the JOB.....
                                     $userId = auth()->id();
 
-                                    ProcessAirtimePurchase::dispatch($userId,$requestId,$airtime_id,$airtime_amount,$total_amount,$total_cashback,$phone_number,$validate_phone_number,$airtime_vendor);
+                                    ProcessAirtimePurchase::dispatch($userId,$requestId,$airtime_id,$airtime_amount,$total_amount,$total_cashback,$phone_number,$validate_phone_number);
 
 
 
@@ -680,7 +680,7 @@ public $loadingWheel = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100
                  //Dispatch the JOB.....
                  $userId = auth()->id();
 
-                 ProcessAirtimePurchase::dispatch($userId,$requestId,$airtime_id,$airtime_amount,$total_amount,$total_cashback,$phone_number,$validate_phone_number,$airtime_vendor);
+                 ProcessAirtimePurchase::dispatch($userId,$requestId,$airtime_id,$airtime_amount,$total_amount,$total_cashback,$phone_number,$validate_phone_number);
 
 
                  $this->dispatch(

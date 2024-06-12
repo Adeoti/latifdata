@@ -66,13 +66,13 @@ class SiteSettingsResource extends Resource
                             ->required()
                             ->prefix($ngn)
                             ->default(0),
-                        TextInput::make('portal_dev_charges')
-                            ->label('VTU Portal Development Charges')
-                            ->numeric()
-                            ->inputMode('decimal')
-                            ->required()
-                            ->prefix($ngn)
-                            ->default(0),
+                        // TextInput::make('portal_dev_charges')
+                        //     ->label('VTU Portal Development Charges')
+                        //     ->numeric()
+                        //     ->inputMode('decimal')
+                        //     ->required()
+                        //     ->prefix($ngn)
+                        //     ->default(0),
                     ])->columns(2),
                     Section::make('Charges B')->schema([
                         TextInput::make('refferal_commision')
@@ -160,9 +160,9 @@ class SiteSettingsResource extends Resource
                     ->money('NGN')
                     ->label('API Charges'),
 
-                TextColumn::make('portal_dev_charges')
-                    ->money('NGN')
-                    ->label('Portal Dev Charges'),
+                // TextColumn::make('portal_dev_charges')
+                //     ->money('NGN')
+                //     ->label('Portal Dev Charges'),
 
                 TextColumn::make('wallet_to_charges')
                     ->money('NGN')

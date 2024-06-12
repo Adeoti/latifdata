@@ -10,6 +10,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class StatsOverview extends BaseWidget
 {
+    //protected int | string | array $columnSpan = 1;
 
     const CURRENCY_SIGN = '₦';
     const ADMIN_BALANCE = '40,440,000.20';
@@ -21,43 +22,26 @@ class StatsOverview extends BaseWidget
 
 
 
-    public function apiBalance($vendor = 'datalight'){
 
-        switch($vendor){
-            case 'twins10':
-                $auth_route = "https://twins10.com/api/user";
-                $pass_n_username = 'Adeoti360:7DP75syvXML$$Ade#';
-            break;
-            case 'datalight':
-                $auth_route = "https://datalight.ng/api/user";
-                $pass_n_username = 'SweetBill:7DP75syvXML$$Ade#';
-            break;
-        }
+    protected function getColumns(): int
+    {
+        
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Basic ' . base64_encode($pass_n_username),
-        ])->post($auth_route);
-        $json = $response->body();
-        
-        $responseData = json_decode($json, true);
-        $username = $responseData['username'];
-        $balance = (float) str_replace(',', '', $responseData['balance']);
-            $balance = SELF::CURRENCY_SIGN.number_format($balance,2);
-        return $balance;
-        
+        return 3;
     }
 
 
-
-    public function getMyVtPassBalance(){
+    public function getMySweetBillBalance(){
         $balance_mi = 0;
 
         $response = Http::withHeaders([
-            'api-key' => PaymentIntegration::first()->vtpass_api_key,
-            'public-key' => PaymentIntegration::first()->vtpass_public_key,
+            'email' => PaymentIntegration::first()->sweetbill_email,
+            'password' => PaymentIntegration::first()->sweetbill_password,
+            'api_key' => PaymentIntegration::first()->sweetbill_api_key,
+            
             'Content-Type' => 'application/json',
 
-        ])->get('https://api-service.vtpass.com/api/balance');
+        ])->get('https://sweetbill.ng/api/v1/balance');
         
            // dd($response);
 
@@ -65,8 +49,10 @@ class StatsOverview extends BaseWidget
         if ($response->successful()) {
             // Request was successful, handle the response
             $responseData = $response->json();
-            
-            $balance_mi = $responseData['contents']['balance'];
+           
+            $balance_mi = $responseData['balance'];
+
+            $balance_mi = number_format($balance_mi,2);
 
         } else {
 
@@ -80,7 +66,6 @@ class StatsOverview extends BaseWidget
 
             return;
             
-            //dd();
 
         }
 
@@ -101,19 +86,11 @@ class StatsOverview extends BaseWidget
 
         return [
          
-            Stat::make(' Twins10 Wallet Balance', $this->apiBalance('twins10'))
+         
+            Stat::make('SweetBill Wallet Balance', SELF::CURRENCY_SIGN.$this->getMySweetBillBalance())
                 ->chart([7, 2, 10, 3, 15, 4, 17]) 
                 -> color('success')
-            ,
-         
-            Stat::make(' DataLight Wallet Balance', $this->apiBalance('datalight'))
-                ->chart([7, 2, 10, 3, 15, 4, 17]) 
-                -> color('primary')
-            ,
-         
-            Stat::make(' VTPass Wallet Balance', SELF::CURRENCY_SIGN.$this->getMyVtPassBalance())
-                ->chart([7, 2, 10, 3, 15, 4, 17]) 
-                -> color('success')
+                
             ,
             Stat::make('User\'s Wallet Balance',SELF::CURRENCY_SIGN.number_format($total_users_balance,2))
                 -> description('The sum of all users\' wallet balance')
@@ -125,7 +102,7 @@ class StatsOverview extends BaseWidget
                 -> descriptionColor('info')
                 -> descriptionIcon('heroicon-m-user-plus')
             ,
-            Stat::make('SweetBill Users', User::count()) 
+            Stat::make('LatifData Users', User::count()) 
                 -> chart([7, 1, 4, 30, 15, 4, 2])
                 -> color('primary'),
 

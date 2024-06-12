@@ -92,18 +92,15 @@ class DataAPIIntegrationResource extends Resource
                                 ->prefix("$ngn")
                                 ->numeric(),
 
-                            TextInput::make('api_price')
-                                ->required()
-                                ->prefix("$ngn")
-                                ->numeric(),
+                           
 
 
 
-                        ])->columns(4),
+                        ])->columns(3),
 
                 Section::make('Cashback')
                         ->collapsible()
-                        ->collapsed(true)
+                        ->collapsed(false)
                         ->description('Set the cashback for each package')
                         ->schema([
                             
@@ -122,45 +119,22 @@ class DataAPIIntegrationResource extends Resource
                                 ->prefix("$ngn")
                                 ->numeric(),
 
-                            TextInput::make('api_cashback')
-                                ->default(0)
-                                ->prefix("$ngn")
-                                ->numeric(),
+                           
 
 
 
-                        ])->columns(4),
+                        ])->columns(3),
 
                         Section::make('API Data')
                             ->schema([
                                 
                                 TextInput::make('api_code')
-                                    ->required(),
-
-                                TextInput::make('service_id')
-                                    ->required(),
-
-                                TextInput::make('endpoint')
-                                    ->required(),
-
-                               
-
-
-                                Select::make('vendor_name')
-                                    ->options([
-                                        'twins10' => 'twins10',
-                                        'datalight' => 'datalight',
-                                        'vtpass' => 'vtpass',
-                                        'flutterwave' => 'flutterwave',
-                                        'epins' => 'epins',
-
-                                    ])->searchable()
                                     ->required()
-                                
-                                ,
-                                
+                                    ->label('Data ID')
+                                    ,
+
                                 Hidden::make('user_id')->default(auth()->id())
-                            ])->columns(4)
+                            ])
             ]);
     }
 

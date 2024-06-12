@@ -28,7 +28,7 @@
               </svg> 
             Proceed</span>
            <span wire:loading
-                   style="background:#ec5e21; color:#fff; font-weight:500; cursor:no-drop; opacity:0.6; padding:7px 11px; border-radius:3px;"
+                   style="background:#7534e5; color:#fff; font-weight:500; cursor:no-drop; opacity:0.6; padding:7px 11px; border-radius:3px;"
            >
 
 

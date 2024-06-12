@@ -83,18 +83,14 @@ class AirtimeIntegrationResource extends Resource
                                 ->prefix("$ngn")
                                 ->numeric(),
 
-                            TextInput::make('api_price')
-                                ->required()
-                                ->prefix("$ngn")
-                                ->numeric(),
 
 
 
-                        ])->columns(4),
+                        ])->columns(3),
 
                 Section::make('Cashback')
                         ->collapsible()
-                        ->collapsed(true)
+                        ->collapsed(false)
                         ->description('Set the cashback for each package')
                         ->schema([
                             
@@ -113,14 +109,11 @@ class AirtimeIntegrationResource extends Resource
                                 ->prefix("%")
                                 ->numeric(),
 
-                            TextInput::make('api_cashback')
-                                ->default(0)
-                                ->prefix("%")
-                                ->numeric(),
+                            
 
 
 
-                        ])->columns(4),
+                        ])->columns(3),
 
                         Section::make('Restrictions')
                             ->schema([
@@ -140,29 +133,14 @@ class AirtimeIntegrationResource extends Resource
                             ->schema([
                                 
                                 TextInput::make('api_code')
-                                    ->label('API Code / Network ID')
+                                    ->label('Network (1,2,3,4...) ')
                                     ->required(),
 
-                                TextInput::make('service_id')
-                                    ->label('Service ID / Plan Type')
-                                    ->required(),
-
-                                TextInput::make('endpoint')
-                                    ->required(),
+                              
   
-                                    Select::make('vendor_name')
-                                    ->options([
-                                        'twins10' => 'twins10',
-                                        'datalight' => 'datalight',
-                                        'vtpass' => 'vtpass',
-                                        'flutterwave' => 'flutterwave',
-                                        'epins' => 'epins',
-                
-                                    ])->searchable()
-                                    ->required()
-                                    ,
+                                   
                                 Hidden::make('user_id')->default(auth()->id())
-                            ])->columns(4),
+                            ]),
 
                     
             ]);
@@ -207,12 +185,7 @@ class AirtimeIntegrationResource extends Resource
                     ->money("NGN")
                     ,
 
-                TextColumn::make('api_price')
-                    ->searchable()
-                    ->toggleable()
-                    ->money("NGN")
-                    ->sortable()
-                    ,
+              
 
                 TextColumn::make('primary_cashback')
                     ->searchable()
@@ -235,13 +208,7 @@ class AirtimeIntegrationResource extends Resource
                     ->sortable()
                     ,
 
-                TextColumn::make('api_cashback')
-                    ->searchable()
-                    ->toggleable()
-                    ->money("NGN")
-                    ->sortable()
-                    ,
-
+              
                 TextColumn::make('minimum_amount')
                     ->searchable()
                     ->toggleable()

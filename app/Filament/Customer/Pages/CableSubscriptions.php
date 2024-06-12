@@ -406,7 +406,7 @@ public function purchase(): void
 
     $cable_amount = $cable_pull->price;
     $cable_id = $cable_pull->id;
-    $cable_vendor = $cable_pull->vendor_name;
+    
 
 
         $currentDateTime = Carbon::now();
@@ -488,7 +488,7 @@ public function purchase(): void
 
 
                         $userId = auth()->id();
-                        ProcessCable::dispatch($userId,$requestId,$cable_id,$amount_to_pay,$phone_number,$decoder_number,$cable_type,$cable_plan,$cable_amount,$cable_charges,$subscription_type,$cable_vendor);
+                        ProcessCable::dispatch($userId,$requestId,$cable_id,$amount_to_pay,$phone_number,$decoder_number,$cable_type,$cable_plan,$cable_amount,$cable_charges,$subscription_type);
 
                         $this->dispatch(
                             'alert', 

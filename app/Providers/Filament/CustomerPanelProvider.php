@@ -45,12 +45,7 @@ class CustomerPanelProvider extends PanelProvider
             ->topbar(true)
             ->spa()
             ->defaultThemeMode(ThemeMode::Light)
-            ->navigationItems([
-                NavigationItem::make('API Documentations')
-                    ->url('/api-docs', shouldOpenInNewTab: false)
-                    ->icon('heroicon-o-signal')
-                    ->sort(30)
-            ])
+            
 
             //->favicon(asset('images/favicon.png'))
             //->brandLogo(asset('images/logo.svg'))
@@ -58,7 +53,7 @@ class CustomerPanelProvider extends PanelProvider
             //->brandLogoHeight('2rem')
             
             ->colors([
-                'primary' => "#fe5006",
+                'primary' => "#7534e5",
                 'danger' => Color::Rose,
                 'gray' => '#000000', //Color::Gray,
                 'info' => Color::Blue,

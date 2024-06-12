@@ -1,6 +1,6 @@
 <x-filament-panels::page>
     
-
+{{-- 
 
 @php
     $user = filament()->auth()->user();
@@ -399,5 +399,5 @@
         
     </script>
     @endscript
-</div>
+</div> --}}
 </x-filament-panels::page>

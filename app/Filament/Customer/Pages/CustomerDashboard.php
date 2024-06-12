@@ -93,17 +93,17 @@ class CustomerDashboard extends Page implements HasTable
     //     ];
     // }
 
-    // protected function getFooterWidgets(): array
-    // {
-    //     return [
+    protected function getFooterWidgets(): array
+    {
+        return [
             
-    //         //AccountWidget::class,
-    //         //FilamentInfoWidget::class,
-    //         //CustomerStats::class,
-    //        // RecentActivitiesWidget::class,
-    //        // ServicesLinksWidget::class,
-    //     ];
-    // }
+            //AccountWidget::class,
+            //FilamentInfoWidget::class,
+            CustomerStats::class,
+           RecentActivitiesWidget::class,
+          ServicesLinksWidget::class,
+        ];
+    }
 
 
 

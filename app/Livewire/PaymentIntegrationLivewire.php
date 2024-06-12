@@ -114,25 +114,25 @@ public function form(Form $form): Form
 
         ])->columns(3),
 
-        Section::make('VTPass')
+        Section::make('SweetBill Credentials')
             ->schema([
                 
-                TextInput::make('vtpass_api_key')
-                ->label('VTPass API Key')
+                TextInput::make('sweetbill_api_key')
+                ->label('SweetBill API Key')
                 ->password()
                 ->default(00000)
                 ->revealable()
                 ->required(),
                 
-                TextInput::make('vtpass_public_key')
-                ->label('VTPass Public Key')
+                TextInput::make('sweetbill_email')
+                ->label('SweetBill Email')
                 ->password()
                 ->default(00000)
                 ->revealable()
                 ->required(),
                 
-                TextInput::make('vtpass_secret_key')
-                ->label('VTPass Secret Key')
+                TextInput::make('sweetbill_password')
+                ->label('SweeBill Password')
                 ->password()
                 ->default(00000)
                 ->revealable()

@@ -129,6 +129,7 @@ class User extends Authenticatable implements FilamentUser
     'account_reference',
     'filled_kyc',
     'balance_toggle',
+    
     ];
 
     /**

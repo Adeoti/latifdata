@@ -118,39 +118,17 @@ class CableIntegrationResource extends Resource
 
                         ])->columns(4),
 
-                        Section::make('API Data')
+                        Section::make('SweetBill API Data')
                             ->schema([
                                 
                                 TextInput::make('api_code')
-                                    ->label('Variation Code / API Code')
+                                    ->label('Cable ID')
                                     ->required(),
 
-                                TextInput::make('service_id')
-                                    ->required(),
-
-                                TextInput::make('endpoint')
-                                    ->default('https://api-service.vtpass.com/api/pay')
-                                    ->required(),
-
-                               
-
-
-                                Select::make('vendor_name')
-                                    ->options([
-                                        'twins10' => 'twins10',
-                                        'datalight' => 'datalight',
-                                        'vtpass' => 'vtpass',
-                                        'flutterwave' => 'flutterwave',
-                                        'epins' => 'epins',
-
-                                    ])->searchable()
-                                    ->default('vtpass')
-                                    ->required()
                                 
-                                ,
                                 
                                 Hidden::make('user_id')->default(auth()->id())
-                            ])->columns(4)
+                            ])
             ]);
     }
 
@@ -215,17 +193,7 @@ class CableIntegrationResource extends Resource
                     ->sortable()
                     ,
 
-                TextColumn::make('service_id')
-                    ->searchable()
-                    ->toggleable()
-                    ->sortable()
-                    ,
-
-                TextInputColumn::make('endpoint')
-                    ->searchable()
-                    ->toggleable()
-                    ->sortable()
-                    ,
+               
 
              
                     

@@ -7,6 +7,8 @@ use App\Models\MobileData;
 use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
 use App\Models\TransactionPuller;
+use App\Models\PaymentIntegration;
+use App\Models\TemporaryLogger;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Queue\SerializesModels;
@@ -18,307 +20,182 @@ class ProcessDataPurchase implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     */
-
-
     protected $userId;
     protected $requestId;
-    protected $data_id;
+    protected $dataId;
     protected $amount;
     protected $cashback;
-    protected $phone_number;
+    protected $phoneNumber;
     protected $bypass;
-    protected $vendor;
+    protected $paymentIntegration;
 
-    public function __construct($userId,$requestId,$data_id,$amount,$cashback,$phone_number,$bypass,$vendor)
+    public function __construct($userId, $requestId, $dataId, $amount, $cashback, $phoneNumber, $bypass)
     {
-        //
-
-
         $this->userId = $userId;
         $this->requestId = $requestId;
-        $this->data_id = $data_id;
+        $this->dataId = $dataId;
         $this->amount = $amount;
         $this->cashback = $cashback;
-        $this->phone_number = $phone_number;
+        $this->phoneNumber = $phoneNumber;
         $this->bypass = $bypass;
-        $this->vendor = $vendor;
 
+        $this->paymentIntegration = PaymentIntegration::first();
     }
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
-        //
-        switch($this->vendor){
-            case 'twins10':
-                $this->buyDataFromTwins10andCo($this->userId,$this->requestId,$this->data_id,$this->amount,$this->cashback,$this->phone_number,$this->bypass,$this->vendor);
-            break;
+        $this->buyDataFromSweetBill();
+    }
 
-            
-            case 'datalight':
-                $this->buyDataFromTwins10andCo($this->userId,$this->requestId,$this->data_id,$this->amount,$this->cashback,$this->phone_number,$this->bypass,$this->vendor);
-            break;
+    public function getMySweetBillBalance()
+    {
+        $response = Http::withHeaders([
+            'email' => $this->paymentIntegration->sweetbill_email,
+            'password' => $this->paymentIntegration->sweetbill_password,
+            'api_key' => $this->paymentIntegration->sweetbill_api_key,
+            'Content-Type' => 'application/json',
+        ])->get('https://sweetbill.ng/api/v1/balance');
 
-            
+        if ($response->successful()) {
+            $responseData = $response->json();
+            return $responseData['balance'];
+        } else {
+            TransactionPuller::create([
+                'user_id' => $this->userId,
+                'status' => 'error',
+                'transaction_key' => $this->requestId,
+                'title' => 'Balance Error',
+                'message' => "Unable to fetch balance from the Vendor.",
+            ]);
+            return 0;
         }
     }
 
+    public function buyDataFromSweetBill()
+    {
+        $user = User::find($this->userId);
+        $balance = $this->getMySweetBillBalance();
 
+        if ($this->amount > $balance) {
+            TransactionPuller::create([
+                'user_id' => $this->userId,
+                'status' => 'error',
+                'transaction_key' => $this->requestId,
+                'title' => 'Error Occurred',
+                'message' => "Insufficient balance.",
+            ]);
+            return;
+        }
 
+        $mobileData = MobileData::find($this->dataId);
+        $network = $mobileData->api_code;
+        $oldBalance = $user->balance;
+        $newBalance = $oldBalance - $this->amount;
+        $newCashback = $user->cashback_balance + $this->cashback;
 
-    public function buyDataFromTwins10andCo($userId,$requestId,$data_id,$amount,$cashback,$phone_number,$bypass,$vendor){
-       
-        $auth_route = $pass_n_username = "";
-        $user = User::find($userId);
- 
-             switch($vendor){
-                 case 'twins10':
-                     $auth_route = "https://twins10.com/api/user";
-                     $pass_n_username = 'Adeoti360:7DP75syvXML$$Ade#';
-                 break;
-                 case 'datalight':
-                     $auth_route = "https://datalight.ng/api/user";
-                     $pass_n_username = 'SweetBill:7DP75syvXML$$Ade#';
-                 break;
-             }
-        
-         $response = Http::withHeaders([
-             'Authorization' => 'Basic ' . base64_encode($pass_n_username),
-         ])->post($auth_route);
-         
- 
- 
- 
-         $ngn = "₦";
- 
-         
- 
-         $json = $response->body();
-         
-         $responseData = json_decode($json, true);
- 
-        
- 
-         $status = $responseData['status'];
- 
-             if($status != "success"){
-
-                
-                 //Pull out the notification....
-
-                 TransactionPuller::create([
-                    'user_id' => $userId,
-                    'status' => 'error',
-                    'transaction_key' => $requestId,
-                    'title' => 'Error Occurred',
-                    'message' => "Authentication Error! Try again.",
+        DB::beginTransaction();
+        try {
+            DB::table('users')
+                ->where('id', $this->userId)
+                ->update([
+                    'balance' => $newBalance,
+                    'cashback_balance' => $newCashback
                 ]);
 
-                 return;
- 
-             }
- 
- 
- 
-             $accessToken = $responseData['AccessToken'];
-             $username = $responseData['username'];
-             $balance = (float) str_replace(',', '', $responseData['balance']);
+            $temporaryMessage = "Purchase of {$mobileData->network} {$mobileData->plan_size} Data to {$this->phoneNumber}";
+
+            Transaction::create([
+                'type' => 'data',
+                'user_id' => $this->userId,
+                'api_response' => $temporaryMessage,
+                'status' => 'pending',
+                'note' => $temporaryMessage,
+                'phone_number' => $this->phoneNumber,
+                'amount' => "₦" . number_format($this->amount, 2),
+                'old_balance' => "₦" . number_format($oldBalance, 2),
+                'new_balance' => "₦" . number_format($newBalance, 2),
+                'cashback' => "₦" . number_format($this->cashback, 2),
+                'reference_number' => $this->requestId,
+                'plan_name' => $mobileData->plan_type,
+                'network' => $mobileData->network,
+            ]);
+
+            $payload = [
+                'data_id' => $network,
+                'phone' => $this->phoneNumber,
+                'requestId' => $this->requestId,
+            ];
+
+            $purchaseResponse = Http::withHeaders([
+                'email' => $this->paymentIntegration->sweetbill_email,
+                'password' => $this->paymentIntegration->sweetbill_password,
+                'api_key' => $this->paymentIntegration->sweetbill_api_key,
+                'Content-Type' => 'application/json',
+            ])->post('https://sweetbill.ng/api/v1/buy-data', $payload);
+
+            $responsePurchase = $purchaseResponse->json();
+
             
-            
- 
-                 //Check if my balance is capable of the job!
- 
-                 
-                 if($amount > $balance){
 
-                     //Pull out the notification....
+            $purchaseStatus = $responsePurchase['status'];
+            $message = $responsePurchase['message'];
 
-                     TransactionPuller::create([
-                        'user_id' => $userId,
-                        'status' => 'error',
-                        'transaction_key' => $requestId,
-                        'title' => 'Error Occurred',
-                        'message' => "Something went wrong and we will fix it soon!",
+            if ($purchaseStatus == 'success') {
+                DB::table('transactions')
+                    ->where('reference_number', $this->requestId)
+                    ->where('user_id', $this->userId)
+                    ->update([
+                        'status' => "successful",
+                        'api_response' => $message,
+                        'note' => "You've successfully purchased {$mobileData->network} {$mobileData->plan_size} Data to {$this->phoneNumber} on " . date("l jS \of F Y h:i:s A") . "."
                     ]);
 
-                    
-                     return;
-                 }
- 
- 
- 
-                 //Get Data Details....
- 
-                 $network = MobileData::find($data_id)->api_code;
-                 $data_plan = MobileData::find($data_id)->service_id;
-                 $endpoint = MobileData::find($data_id)->endpoint;
- 
- 
-                 //$user_old_balance = auth()->user()->balance;
-                 $old_balance = $user->balance;
-                 $new_balance = $old_balance - $amount;
- 
- 
-                 $old_balance_solid = $user->balance;
-                 $new_balance_solid = $old_balance_solid - $amount;
- 
- 
-                 $old_cashback = $user->cashback_balance;
-                 $new_cashback = $old_cashback+$cashback;
- 
- 
-                 $old_balance = number_format($old_balance,2);
-                 $new_balance = number_format($new_balance,2);
-                 $transactionStatus = "pending";
- 
- 
- 
-                 
- 
- 
-                 //
-                 // Debit user ahead and record Transaction....
-                 //
-                 //
-                 
-                 
-                 $temporary_network = MobileData::find($data_id)->network;
-                 $temporary_plan_size = MobileData::find($data_id)->plan_size;
-                 $temporary_plan_type = MobileData::find($data_id)->plan_type;
-                 $temporary_message = "Purchase of $temporary_network $temporary_plan_size Data to $phone_number";
- 
-                 DB::table('users')
-                 ->where('id', $userId)
-                 ->update([
-                     'balance' => $new_balance_solid,
-                     'cashback_balance' => $new_cashback
-                 ]);
- 
-                 Transaction::create([
-                     'type' => 'data',
-                     'user_id' => $userId,
-                     'api_response' => $temporary_message,
-                     'status' => $transactionStatus,
-                     'note' => $temporary_message,
-                     'phone_number' => $phone_number,
-                     'amount' => "$ngn".number_format($amount,2),
-                     'old_balance' => "$ngn".$old_balance,
-                     'new_balance' => "$ngn".$new_balance,
-                     'cashback' => "$ngn".number_format($cashback,2),
-                     'reference_number' => $requestId,
-                     'plan_name' => $temporary_plan_type,
-                     'network' => $temporary_network,
-                 ]);
- 
-                     $payload = [
-                         'network' => $network,
-                         'phone' => $phone_number,
-                         'data_plan' => $data_plan,
-                         'bypass' => $bypass,
-                         'request-id' => $requestId,
-                     ];
- 
-                     $purchaseResponse = Http::withHeaders([
-                         'Authorization' => "Token ".$accessToken."",
-                         'Content-Type' => 'application/json'
-                     ])->post(trim($endpoint), $payload);
- 
-                    // $purchaseResult = $purchaseResponse->json();
-                     $responsePurchase = json_decode($purchaseResponse->body(), true);
- 
- 
-                     $purchaseStatus = $responsePurchase['status'];
-                     $message = $responsePurchase['message'];
- 
- 
-                         //dd($purchaseResult);
- 
-                         if(isset($purchaseStatus)){
-                             
-                     if($purchaseStatus == 'success'){
- 
-                             //Update Transaction Record and don't update balance and cashback
-                             //Flash success message
- 
-                             DB::table('transactions')
-                             ->where('reference_number', $requestId)->where('user_id',$userId)
-                             ->update([
-                                 'status' => "successful",
-                                 'api_response' => $message,
-                                 'note' => "You've successfully sold ".strtoupper($temporary_network)." $temporary_plan_type of ".$temporary_plan_size." Data to ".$phone_number." on ".date("l jS \of F Y h:i:s A")."."
-                             ]);
- 
-                         
-
-                              //Pull out the notification....
-
-                     TransactionPuller::create([
-                        'user_id' => $userId,
-                        'status' => 'success',
-                        'transaction_key' => $requestId,
-                        'title' => 'Successful',
-                        'message' => "You've successfully sold ".strtoupper($temporary_network)." $temporary_plan_type of ".$temporary_plan_size." Data to ".$phone_number." on ".date("l jS \of F Y h:i:s A").".",
+                TransactionPuller::create([
+                    'user_id' => $this->userId,
+                    'status' => 'success',
+                    'transaction_key' => $this->requestId,
+                    'title' => 'Successful',
+                    'message' => "You've successfully purchased {$mobileData->network} {$mobileData->plan_size} Data to {$this->phoneNumber} on " . date("l jS \of F Y h:i:s A") . ".",
+                ]);
+            } else {
+                DB::table('users')
+                    ->where('id', $this->userId)
+                    ->update([
+                        'balance' => $oldBalance,
+                        'cashback_balance' => $user->cashback_balance,
                     ]);
 
-
- 
- 
- 
- 
-                     }else{
- 
-                         //Record Transaction
-                         //Update Balance and Cashback to old data
-                         //Flash Message
- 
-                         DB::table('users')
-                         ->where('id', $userId)
-                         ->update([
-                             'balance' => $old_balance_solid,
-                             'cashback_balance' => $old_cashback
-                         ]);
- 
-                         DB::table('transactions')
-                             ->where('reference_number', $requestId)->where('user_id',$userId)
-                             ->update([
-                                 'status' => "failed",
-                                 'api_response' => $message,
-                                 'new_balance' => "$ngn".$old_balance,
-                                 'cashback' => $ngn."00.00",
-                                 'note' => "Failed to sell ".strtoupper($temporary_network)." $temporary_plan_type of ".$temporary_plan_size." Data to ".$phone_number." on the ".date("l jS \of F Y h:i:s A")."."
-                             ]);
- 
-
-
-                         //Pull out the notification....
-
-                     TransactionPuller::create([
-                        'user_id' => $userId,
-                        'status' => 'error',
-                        'transaction_key' => $requestId,
-                        'title' => 'Error Occurred',
-                        'message' => "Something went wrong. Please try again!",
+                DB::table('transactions')
+                    ->where('reference_number', $this->requestId)
+                    ->where('user_id', $this->userId)
+                    ->update([
+                        'status' => "failed",
+                        'api_response' => $message,
+                        'new_balance' => "₦" . number_format($oldBalance, 2),
+                        'cashback' => "₦0.00",
+                        'note' => "Failed to purchase {$mobileData->network} {$mobileData->plan_size} Data to {$this->phoneNumber} on " . date("l jS \of F Y h:i:s A") . "."
                     ]);
-                            
-                       
- 
-                     }
-                         }
- 
-                     
- 
-              
- 
- 
- 
- 
- 
- 
-      }
- 
+
+                TransactionPuller::create([
+                    'user_id' => $this->userId,
+                    'status' => 'error',
+                    'transaction_key' => $this->requestId,
+                    'title' => 'Error Occurred',
+                    'message' => "Something went wrong. Please try again!",
+                ]);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // Handle exception
+            TransactionPuller::create([
+                'user_id' => $this->userId,
+                'status' => 'error',
+                'transaction_key' => $this->requestId,
+                'title' => 'Error Occurred',
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
 }

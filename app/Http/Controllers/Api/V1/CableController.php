@@ -36,14 +36,16 @@ class CableController extends Controller
         if (Transaction::where('reference_number', $requestId)->exists()) {
             return response()->json([
                 'status' => 'failed',
-                'error' => 'Duplicate requestId. Transaction already exists.',
+                'message' => 'Duplicate requestId. Transaction already exists.',
             ], 400);
         }
 
         // Get user details
         $user = User::where('email', $email)->first();
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'User not found'], 404);
         }
 
         $userId = $user->id;
@@ -51,7 +53,9 @@ class CableController extends Controller
         // Get cable details from the database
         $cable = CableSubscription::find($cable_id);
         if (!$cable) {
-            return response()->json(['error' => 'Invalid cable ID'], 400);
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Invalid cable ID'], 400);
         }
 
         // Determine the charges based on user package
@@ -74,7 +78,7 @@ class CableController extends Controller
 
         // Check if the user has sufficient balance
         if ($user->balance < $amount_to_pay) {
-            return response()->json(['status' => 'failed', 'error' => 'Insufficient Fund!'], 400);
+            return response()->json(['status' => 'failed', 'message' => 'Insufficient Fund!'], 400);
         }
 
         // Proceed to buy cable based on vendor
@@ -82,7 +86,9 @@ class CableController extends Controller
             return $this->buyCableFromVtPass($userId, $requestId, $cable_id, $amount_to_pay, $phone, $decoder_number, $cable_serviceID, $cable_variation_code, $cable_price, $cable_charges, $sub_type, $cable_vendor);
         }
 
-        return response()->json(['error' => 'Unsupported vendor'], 400);
+        return response()->json([
+            'status' => 'failed',
+            'message' => 'Unsupported vendor'], 400);
     }
 
     public function getMyVtPassBalance()
@@ -97,7 +103,7 @@ class CableController extends Controller
             return $response->json()['contents']['balance'];
         }
 
-        return response()->json(['status' => 'failed', 'error' => 'Something went wrong. Try again or chat our reps!'], 400);
+        return response()->json(['status' => 'failed', 'message' => 'Something went wrong. Try again or chat our reps!'], 400);
     }
 
     public function buyCableFromVtPass($userId, $requestId, $cable_id, $amount_to_pay, $phone_number, $decoder_number, $service_id, $variation_code, $cable_amount, $cable_charges, $subscription_type, $cable_vendor)
@@ -141,7 +147,7 @@ class CableController extends Controller
                 if (array_key_exists('Customer_Name', $slicedResponce['content'])) {
                     $customerName = $slicedResponce['content']['Customer_Name'];
                 } else {
-                    return response()->json(['status' => 'failed', 'error' => 'Kindly provide a valid Decoder Number and Try again!'], 400);
+                    return response()->json(['status' => 'failed', 'message' => 'Kindly provide a valid Decoder Number and Try again!'], 400);
                 }
 
                 DB::table('users')
@@ -187,7 +193,7 @@ class CableController extends Controller
                 $responsePurchase = json_decode($responseCable->body(), true);
 
                 if (!isset($responsePurchase['content']['transactions']['status'])) {
-                    return response()->json(['status' => 'failed', 'error' => 'API Initialization Error!: 187'], 400);
+                    return response()->json(['status' => 'failed', 'message' => 'API Initialization Error!: 187'], 400);
                 }
 
                 if (isset($responsePurchase['content']['transactions']['status'])) {
@@ -245,7 +251,7 @@ class CableController extends Controller
                     return response()->json(['status' => 'failed', 'message' => 'Something went wrong. Please try again!'], 400);
                 }
             } else {
-                return response()->json(['status' => 'failed', 'error' => 'Please try again later or reach out to our reps for help!'], 400);
+                return response()->json(['status' => 'failed', 'message' => 'Please try again later or reach out to our reps for help!'], 400);
             }
         } else {
             return response()->json(['status' => 'failed', 'message' => 'Something went wrong we are working on it quickly. Thanks!'], 400);
