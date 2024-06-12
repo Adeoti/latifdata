@@ -226,21 +226,10 @@ class AirtimeIntegrationResource extends Resource
                 TextColumn::make('api_code')
                     ->searchable()
                     ->toggleable()
-                    
+                    ->label('SweetBill Airtime ID')
                     ->sortable()
                     ,
 
-                TextColumn::make('service_id')
-                    ->searchable()
-                    ->toggleable()
-                    ->sortable()
-                    ,
-
-                TextColumn::make('endpoint')
-                    ->searchable()
-                    ->toggleable()
-                    ->sortable()
-                    ,
 
              
                     
