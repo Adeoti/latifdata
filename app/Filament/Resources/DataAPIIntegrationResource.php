@@ -236,23 +236,7 @@ class DataAPIIntegrationResource extends Resource
                     ->sortable()
                     ,
 
-                TextColumn::make('service_id')
-                    ->searchable()
-                    ->toggleable()
-                    ->sortable()
-                    ,
-
-                TextColumn::make('endpoint')
-                    ->searchable()
-                    ->toggleable()
-                    ->sortable()
-                    ,
-
-                TextColumn::make('vendor_name')
-                    ->searchable()
-                    ->toggleable()
-                    ->sortable()
-                    
+               
                
 
 
