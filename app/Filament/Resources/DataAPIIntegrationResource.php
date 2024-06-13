@@ -195,12 +195,7 @@ class DataAPIIntegrationResource extends Resource
                     ->money("NGN")
                     ,
 
-                TextColumn::make('api_price')
-                    ->searchable()
-                    ->toggleable()
-                    ->money("NGN")
-                    ->sortable()
-                    ,
+               
 
                 TextColumn::make('primary_cashback')
                     ->searchable()
@@ -223,12 +218,7 @@ class DataAPIIntegrationResource extends Resource
                     ->sortable()
                     ,
 
-                TextColumn::make('api_cashback')
-                    ->searchable()
-                    ->toggleable()
-                    ->money("NGN")
-                    ->sortable()
-                    ,
+               
 
                 TextColumn::make('api_code')
                     ->searchable()
