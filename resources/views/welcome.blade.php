@@ -119,7 +119,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-12">
                     <div class="image wow fadeInLeft" data-wow-delay=".3s">
-                        <img src="{{ asset("/assets/images/herophoneb.png") }}" style="transform: scale(.7);" alt="#">
+                        <img src="{{ asset("/assets/images/herophoneb.png") }}" style="transform: scale(.7); border-radius:10px;" alt="#">
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
