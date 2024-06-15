@@ -861,14 +861,14 @@
                                     <li><a href="{{ url("javascript:void(0)") }}"><i class="lni lni-youtube"></i></a></li>
                                 </ul>
                                 <p>
-                                    <b>Address: </b> 5, IFELODUN STREET AJEGUNLE IKORODU, Lagos 
+                                    <b>Address: </b> 5, Bako, Apata-Rd, Ibadan
                                 </p>
                                 <p>
-                                    <b>Phone No.: </b> 09114071688 
+                                    <b>Phone No.: </b> 07045157271 
                                 </p>
 
                                 <p>
-                                    <b>Email: </b> Adeoti4tech@gmail.com
+                                    <b>Email: </b> alhajaapeke@gmail.com
                                 </p>
                             </div>
                             <!-- End Single Widget -->
