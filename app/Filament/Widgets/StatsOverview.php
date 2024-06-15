@@ -2,8 +2,10 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Expense;
 use App\Models\User;
 use App\Models\PaymentIntegration;
+use App\Models\Saving;
 use Illuminate\Support\Facades\Http;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -79,9 +81,13 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
 
-
+        $total_company_expenses = Expense::where('is_customer', false)->sum('amount');
+        $total_company_savings = Saving::where('is_customer', false)->sum('amount');
+        
         $total_users_balance = User::sum('balance');
         $total_users_cashback_balance = User::sum('cashback_balance');
+
+        
 
 
         return [
@@ -116,12 +122,12 @@ class StatsOverview extends BaseWidget
 
 
 
-            Stat::make('Expenses', SELF::CURRENCY_SIGN.SELF::COMPANY_EXPENSES)
+            Stat::make('Expenses', SELF::CURRENCY_SIGN.number_format($total_company_expenses,2))
                 -> description('This year\'s expenses')
                 -> descriptionColor('info')
                 -> descriptionIcon('heroicon-m-arrow-down')
             ,
-            Stat::make('Savings', SELF::CURRENCY_SIGN.SELF::COMPANY_SAVINGS)
+            Stat::make('Savings', SELF::CURRENCY_SIGN.number_format($total_company_savings,2))
                 -> description('This years\' savings')
                 -> descriptionColor('success')
                 -> descriptionIcon('heroicon-m-arrow-up')
