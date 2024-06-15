@@ -105,7 +105,7 @@
                 </div>
                 <div class="col-lg-7 col-12">
                     <div class="hero-image wow fadeInRight" data-wow-delay=".4s">
-                        <img class="main-image" src="{{ asset("assets/images/after-hero-left.png") }}"  alt="#">
+                        <img class="main-image" src="{{ asset("assets/images/after-hero-left.png") }}"  style="border-radius: 20px; transform:rotate(45deg); border:4px solid lightgray;" alt="#">
                     </div>
                 </div>
             </div>
