@@ -933,8 +933,8 @@
                             <p class="copyright-text">© 2024  LatifData - All Rights Reserved</p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12">
-                            <p class="copyright-owner">Designed and Developed by <a href="https://adeotidigital.com/"
-                                    rel="nofollow" target="_blank">Adeoti Digital</a>
+                            <p class="copyright-owner">Designed and Developed by <a href="https://adeotidigital.com/build-vtu-portal-and-app/"
+                                    target="_blank">Adeoti Digital</a>
                         </div>
                     </div>
                 </div>
