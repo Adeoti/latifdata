@@ -93,10 +93,10 @@
             <div class="row align-items-center">
                 <div class="col-lg-5 col-md-12 col-12">
                     <div class="hero-content">
-                        <h4>The sweetest App to  Settle Your</h4>
-                        <h1>Daily Bills and <br>
-                            Enjoy the Process</h1>
-                        <p>LatifData gives you the sweetest experience while topping up your DATA Bundles, Airtime, Electricity Bills, and so on.
+                        <h4>Don't run out of Data or Airtime again!</h4>
+                        <h1>Enjoy Endless discount<br>
+                            on all your purchase</h1>
+                        <p>LatifData is your best go-to if you need Data, Airtime, Cable subs, Electricity subs; without hurting your bank.
                         </p>
                         <div class="button">
                             <a href="{{url('app/register')}}" class="btn ">Get started now</a>
