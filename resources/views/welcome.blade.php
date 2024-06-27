@@ -861,7 +861,7 @@
                                     <li><a href="{{ url("javascript:void(0)") }}"><i class="lni lni-youtube"></i></a></li>
                                 </ul>
                                 <p>
-                                    <b>Address: </b> 5, Bako, Apata-Rd, Ibadan
+                                    <b>Address: </b> No 3, Zone 5, Arise Community, Apata Ibadan, Ibadan, Oyo State.
                                 </p>
                                 <p>
                                     <b>Phone No.: </b> 07045157271 
