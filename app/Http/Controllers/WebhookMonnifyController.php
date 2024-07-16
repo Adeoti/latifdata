@@ -133,7 +133,7 @@ class WebhookMonnifyController extends Controller
         $monnifySignature = $request->header('monnify-signature');
     
         // Compute hash of the request body using your client secret key
-        $computedHash = hash_hmac('sha512', $request->getContent(), 'JU7J2MMZ1H4XDAS7P6K9UJXXQVGZE252');
+        $computedHash = hash_hmac('sha512', $request->getContent(), '8QVQBURQRFQZYXRJCLZXWYQ3WW9TU5P9');
     
         // Compare the computed hash with the one sent by Monnify
         if ($monnifySignature !== $computedHash) {
