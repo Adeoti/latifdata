@@ -55,7 +55,18 @@ class DataAPIIntegrationResource extends Resource
                             'SME2'=>'SME2',
                             'CG'=>'CG',
                             'CDG'=>'CDG',
-                            'Direct'=>'Direct'
+                            'Daily'=>'Daily',
+                            'Weekly'=>'Weekly',
+                            'Monthly'=>'Monthly',
+                            'BI-Monthly'=>'BI-Monthly',
+                            'Weekend'=>'Weekend',
+                            'Social'=>'Social',
+                            'Hourly'=>'Hourly',
+                            'Special'=>'Special',
+                            '2-Months'=>'2-Months',
+                            'Other'=>'Other',
+                            'Direct'=>'Direct',
+                            'Gifting'=>'Gifting',
 
                         ]),
 
