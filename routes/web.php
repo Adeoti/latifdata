@@ -13,13 +13,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('app/share-wallet', function () {
+    return;
+});
 Route::post('/monnify/webhook/adeotisweetbill/ibadan/startmilkbread/eran-ileya', [WebhookMonnifyController::class, 'handleWebhook']);
 
 // Route::get('/login', function () {
 //     return redirect(route('filament.admin.auth.login'));
 // })->name('login');
-
-
-
-

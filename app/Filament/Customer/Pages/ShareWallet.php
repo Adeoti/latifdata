@@ -12,6 +12,8 @@ class ShareWallet extends Page
 
     protected static ?string $navigationLabel = "Share Wallet";
     protected static ?int $navigationSort = 8;
+    protected static bool $isDiscovered = false;
+
 
 
     public static function getNavigationBadge(): ?string
@@ -23,8 +25,4 @@ class ShareWallet extends Page
     {
         return 'success';
     }
-
-
-
-
 }

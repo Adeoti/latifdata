@@ -76,8 +76,9 @@ class ShareWallet extends Component implements HasForms
         }
     }
 
-    public function shareWallet(): void
+    public function shareWallet()
     {
+        return false;
         $user_email = $this->form->getState()['email'];
         $amount = $this->form->getState()['amount'];
         $note = $this->form->getState()['note'];
