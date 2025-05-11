@@ -45,8 +45,6 @@ class ElectricityIntegrationResource extends Resource
 
                     Select::make('vendor_name')
                         ->options([
-                            'twins10' => 'twins10',
-                            'datalight' => 'datalight',
                             'vtpass' => 'vtpass',
                             'flutterwave' => 'flutterwave',
                             'epins' => 'epins',
