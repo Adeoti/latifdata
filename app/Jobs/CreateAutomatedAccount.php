@@ -49,9 +49,6 @@ class CreateAutomatedAccount implements ShouldQueue
     
     
     protected function createMonnifyAccounts($theUser){
-    
-     
-    
         $currentDateTime = Carbon::now();
     
         $formattedDateTime = $currentDateTime->format('YmdHi');
@@ -64,20 +61,11 @@ class CreateAutomatedAccount implements ShouldQueue
     
     
     
-        //$requestId .= "SWEETBILL";
-    
-    
-        
-        // $apiKey = 'MK_TEST_Y0J7HGM835'; //Sandbox
-        // $secretKey = 'KUW10CC1LUPD5V9J24N6U7RH4WN82LCN'; //Sandbox
-        // $baseUrl = 'https://sandbox.monnify.com/'; //Sandbox 
-        // $contractCode = '1128816807';
-    
         $apiKey = PaymentIntegration::first()->monnify_api_key; 
         $secretKey = PaymentIntegration::first()->monnify_secret_key; 
         $contractCode = PaymentIntegration::first()->monnify_contract_code;
         
-        $baseUrl = 'https://api.monnify.com/'; //Production
+        $baseUrl = 'https://api.monnify.com/'; 
     
     
     
@@ -110,8 +98,8 @@ class CreateAutomatedAccount implements ShouldQueue
                 "contractCode" => $contractCode,
                 "customerEmail" => $theUser->email,
                 "customerName" => $theUser->name,
-                "bvn" => "22206510323",
-                "nin" => "66376968325",
+                "bvn" => "",
+                "nin" => "",
                 "getAllAvailableBanks" => true
             ];
             

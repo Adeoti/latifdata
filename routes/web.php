@@ -17,7 +17,7 @@ Route::get('app/share-wallet', function () {
     abort(404);
     return;
 });
-Route::post('/monnify/webhook/adeotisweetbill/ibadan/startmilkbread/eran-ileya', [WebhookMonnifyController::class, 'handleWebhook']);
+Route::post('/wbhkmisttreyrfattnignccdsasdffghvnxxxxxcuit', [WebhookMonnifyController::class, 'handleWebhook']);
 
 // Route::get('/login', function () {
 //     return redirect(route('filament.admin.auth.login'));
